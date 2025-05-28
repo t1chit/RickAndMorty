@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		5552B0682DE5D526005239E9 /* Swinject in Frameworks */ = {isa = PBXBuildFile; productRef = 5552B0672DE5D526005239E9 /* Swinject */; };
-		5552B06A2DE5D526005239E9 /* Swinject-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 5552B0692DE5D526005239E9 /* Swinject-Dynamic */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,7 +28,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				5552B0682DE5D526005239E9 /* Swinject in Frameworks */,
-				5552B06A2DE5D526005239E9 /* Swinject-Dynamic in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -73,7 +71,6 @@
 			name = RickAndMorty;
 			packageProductDependencies = (
 				5552B0672DE5D526005239E9 /* Swinject */,
-				5552B0692DE5D526005239E9 /* Swinject-Dynamic */,
 			);
 			productName = RickAndMorty;
 			productReference = 5552B02A2DE5BF97005239E9 /* RickAndMorty.app */;
@@ -370,11 +367,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 5552B0662DE5D526005239E9 /* XCRemoteSwiftPackageReference "Swinject" */;
 			productName = Swinject;
-		};
-		5552B0692DE5D526005239E9 /* Swinject-Dynamic */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 5552B0662DE5D526005239E9 /* XCRemoteSwiftPackageReference "Swinject" */;
-			productName = "Swinject-Dynamic";
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

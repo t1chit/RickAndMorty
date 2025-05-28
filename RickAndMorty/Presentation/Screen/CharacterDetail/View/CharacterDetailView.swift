@@ -10,6 +10,10 @@ import SwiftUI
 struct CharacterDetailView: View {
     @Bindable var vm: CharacterDetailViewModel
     var body: some View {
-        Text("Character Detail View")
+        Text("Character ID: \(vm.id)")
+            .onTapGesture {
+                vm.navigateToCharacterList()
+            }
+            .navigationBarBackButtonHidden()
     }
 }

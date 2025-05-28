@@ -9,5 +9,15 @@ import Foundation
 
 @Observable
 final class CharacterDetailViewModel {
+    let id: Int
+    let router: CharacterDetailRouter
     
+    init (id: Int, router: CharacterDetailRouter) {
+        self.id = id
+        self.router = router
+    }
+    
+    func navigateToCharacterList() {
+        router.goBack()
+    }
 }

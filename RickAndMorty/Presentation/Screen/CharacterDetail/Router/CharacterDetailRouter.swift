@@ -10,18 +10,23 @@ import SwiftUI
 final class CharacterDetailRouter {
     private let rootCoordinator: NavigationCoordinator
     private let id = UUID() // 👈 Unique identifier for hashing
-
-    init(rootCoordinator: NavigationCoordinator) {
+    let characterId: Int
+    
+    init(rootCoordinator: NavigationCoordinator, characterId: Int) {
         self.rootCoordinator = rootCoordinator
+        self.characterId = characterId
     }
     
+    func goBack() {
+        rootCoordinator.pop()
+    }
 }
 
 // MARK: - ViewFactory implementation
 
 extension CharacterDetailRouter: Routable {
     func makeView() -> AnyView {
-        let vm = CharacterDetailViewModel()
+        let vm = CharacterDetailViewModel(id: characterId, router: self)
         let view = CharacterDetailView(vm: vm)
         return AnyView(view)
     }
