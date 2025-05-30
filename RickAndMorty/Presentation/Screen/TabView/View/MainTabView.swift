@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct MainTabView: View {
-    //    @Bindable var viewModel: MainTabViewViewModel
     let rootCoordinator: NavigationCoordinator
     
     var body: some View {
@@ -18,9 +17,9 @@ struct MainTabView: View {
                     Label("Characters", systemImage: "person.3")
                 }
             
-            Text("Search")
+            SearchRouter(rootCoordinator: rootCoordinator).makeView()
                 .tabItem {
-                    Image(systemName: "magnifyingglass")
+                    Label("Search", systemImage: "magnifyingglass")
                 }
         }
     }

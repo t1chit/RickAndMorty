@@ -12,15 +12,15 @@ protocol CharacterDetailUseCaseProtocol {
 }
 
 final class CharacterDetailUseCase: CharacterDetailUseCaseProtocol {
-    private let characterDetailRepository: CharacterDetailRepositoryProtocol
+    private let repository: CharacterDetailRepositoryProtocol
     
     init(characterDetailRepository: CharacterDetailRepositoryProtocol) {
-        self.characterDetailRepository = characterDetailRepository
+        self.repository = characterDetailRepository
     }
     
     func execute(characterID id: Int) async throws -> CharacterDetail {
         do {
-            return try await characterDetailRepository.fetchCharacter(id: id)
+            return try await repository.fetchCharacter(id: id)
         } catch {
             print("Error fetching character detail in use case: \(error)")
             throw error // Important: rethrow after logging

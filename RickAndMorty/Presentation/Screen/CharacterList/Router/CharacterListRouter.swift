@@ -13,7 +13,7 @@ final class CharacterListRouter {
     private let id = UUID() // 👈 Unique identifier for hashing
     
     @Injected
-    var fetchCharacterUseCase: FetchCharacterUseCase
+    var fetchCharacterUseCase: FetchCharacterUseCaseProtocol
     
     init(rootCoordinator: NavigationCoordinator) {
         self.rootCoordinator = rootCoordinator

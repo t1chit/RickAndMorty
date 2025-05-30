@@ -21,11 +21,14 @@ enum CharacterListIntent {
 @Observable
 final class CharacterListViewModel {
     private let router: CharacterListRouter
-    private let characterListUseCase: FetchCharacterUseCase
+    private let characterListUseCase: FetchCharacterUseCaseProtocol
 
     var state = CharacterListState()
 
-    init(router: CharacterListRouter, characterListUseCase: FetchCharacterUseCase) {
+    init(
+        router: CharacterListRouter,
+        characterListUseCase: FetchCharacterUseCaseProtocol
+    ) {
         self.router = router
         self.characterListUseCase = characterListUseCase
     }

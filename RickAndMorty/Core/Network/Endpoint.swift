@@ -42,6 +42,7 @@ extension Endpoint {
 enum EndPointsManager: Endpoint {
     case getCharacters
     case getCharacterDetials(id: Int)
+    case searchCharacter(name: String)
 }
 
 extension EndPointsManager {
@@ -51,7 +52,7 @@ extension EndPointsManager {
     
     var path: String {
         switch self {
-        case .getCharacters:
+        case .getCharacters, .searchCharacter(_):
             return "/api/character"
         case .getCharacterDetials(id: let id):
             return "/api/character/\(id)"
@@ -60,14 +61,14 @@ extension EndPointsManager {
     
     var method: HTTPMethod {
         switch self {
-        case .getCharacters, .getCharacterDetials(_):
+        case .getCharacters, .getCharacterDetials(_), .searchCharacter(_):
             return .GET
         }
     }
     
     var headers: [String : String]? {
         switch self {
-        case .getCharacters, .getCharacterDetials(_):
+        case .getCharacters, .getCharacterDetials(_), .searchCharacter(_):
             return ["Content-Type": "application/json"]
         }
     }
@@ -76,12 +77,14 @@ extension EndPointsManager {
         switch self {
         case .getCharacters, .getCharacterDetials(_):
             return nil
+        case .searchCharacter(let name):
+            return [URLQueryItem(name: "name", value: "")]
         }
     }
     
     var body: Data? {
         switch self {
-        case .getCharacters, .getCharacterDetials(_):
+        case .getCharacters, .getCharacterDetials(_), .searchCharacter(_):
             return nil
         }
     }

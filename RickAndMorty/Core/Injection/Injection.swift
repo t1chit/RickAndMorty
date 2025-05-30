@@ -27,12 +27,12 @@ final class Injection {
              NetworkService()
          }
          
-         container.register(CharacterListRepository.self) { resolver in
+         container.register(CharacterListRepositoryProtocol.self) { resolver in
              CharacterListRepository(networkService: resolver.resolve(NetworkService.self)!)
          }
          
-         container.register(FetchCharacterUseCase.self) { resolver in
-             FetchCharacterUseCase(repository: resolver.resolve(CharacterListRepository.self)!)
+         container.register(FetchCharacterUseCaseProtocol.self) { resolver in
+             FetchCharacterUseCase(repository: resolver.resolve(CharacterListRepositoryProtocol.self)!)
          }
          
          container.register(CharacterDetailRepositoryProtocol.self) { resolver in
@@ -41,6 +41,14 @@ final class Injection {
          
          container.register(CharacterDetailUseCaseProtocol.self) { resolver in
              CharacterDetailUseCase(characterDetailRepository: resolver.resolve(CharacterDetailRepositoryProtocol.self)!)
+         }
+         
+         container.register(CharacterSearchRepositoryProtocol.self) { resolver in
+             CharacterSearchReopository(networkService: resolver.resolve(NetworkService.self)!)
+         }
+         
+         container.register(FetchCharacterSearchedUseCaseProtocol.self) { resolver in
+             FetchCharacterSearchedUseCase(repository: resolver.resolve(CharacterSearchRepositoryProtocol.self)!)
          }
          
          return container
