@@ -17,7 +17,8 @@ final class CharacterSearchReopository: CharacterSearchRepositoryProtocol {
     }
     
     func searchCharacters(query: String) async throws -> CharactersList {
-        let response: CharactersList = try await networkService.request(EndPointsManager.searchCharacter(name: query), responseType: CharactersList.self)
+        let response: CharactersList = try await networkService.request(EndPointsManager.searchCharacter(name: query),
+                                                                        responseType: CharactersList.self)
         return response
     }
 }

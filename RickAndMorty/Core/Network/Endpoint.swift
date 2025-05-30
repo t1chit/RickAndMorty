@@ -78,7 +78,7 @@ extension EndPointsManager {
         case .getCharacters, .getCharacterDetials(_):
             return nil
         case .searchCharacter(let name):
-            return [URLQueryItem(name: "name", value: "")]
+            return [URLQueryItem(name: "name", value: name)]
         }
     }
     
