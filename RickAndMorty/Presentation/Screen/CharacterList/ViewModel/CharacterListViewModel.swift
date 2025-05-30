@@ -7,28 +7,55 @@
 
 import Foundation
 
+struct CharacterListState {
+    var isloading: Bool = false
+    var characterList: CharactersList?
+    var error: String?
+}
+
+enum CharacterListIntent {
+    case onAppear
+    case characterSelected(withID: Int)
+}
+
 @Observable
 final class CharacterListViewModel {
     private let router: CharacterListRouter
     private let characterListUseCase: FetchCharacterUseCase
-    var characterList: CharactersList?
-    
+
+    var state = CharacterListState()
+
     init(router: CharacterListRouter, characterListUseCase: FetchCharacterUseCase) {
         self.router = router
         self.characterListUseCase = characterListUseCase
     }
     
     @MainActor
-    func fetchCharacters() async {
+    private func fetchCharacters() async {
+        state.isloading = true
+        state.error = nil
         do {
             let response = try await characterListUseCase.execute()
-            characterList = response
-        }catch {
+            state.characterList = response
+        } catch {
+            state.error = error.localizedDescription
             print("Error fetching character list in view model: \(error)")
         }
+        state.isloading = false
     }
     
-    func navigateToDetails(withID id: Int) {
+    private func navigateToDetails(withID id: Int) {
         router.routeToDetailPage(withID: id)
+    }
+    
+    func send(_ intent: CharacterListIntent) {
+        switch intent {
+        case .onAppear:
+            Task {
+                await fetchCharacters()
+            }
+        case .characterSelected(let id):
+            navigateToDetails(withID: id)
+        }
     }
 }

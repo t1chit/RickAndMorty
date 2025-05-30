@@ -11,20 +11,33 @@ struct CharactersListView: View {
     @Bindable var vm: CharacterListViewModel
     
     var body: some View {
-        content()
+        viewStates()
             .task {
-                await vm.fetchCharacters()
+                vm.send(.onAppear)
             }
+    }
+    
+    @ViewBuilder
+    private func viewStates() -> some View {
+        switch vm.state.isloading {
+        case true:
+            Text("Loading...")
+        case false:
+            if vm.state.characterList == nil {
+                Text("Found the error \(String(describing: vm.state.error))!")
+            } else {
+                content()
+            }
+        }
     }
     
     private func content() -> some View {
         ScrollView {
             LazyVGrid(columns: [GridItem(), GridItem()]) {
-                ForEach(vm.characterList?.results ?? []) { character in
+                ForEach(vm.state.characterList?.results ?? []) { character in
                     CharacterCard(character: character)
                         .onTapGesture {
-                            print("Navigate To Character Details Called")
-                            vm.navigateToDetails(withID: character.id)
+                            vm.send(.characterSelected(withID: character.id))
                         }
                 }
             }
