@@ -12,6 +12,7 @@ final class CharacterDetailRouter {
     private let rootCoordinator: NavigationCoordinator
     private let id = UUID() // 👈 Unique identifier for hashing
     let characterId: Int
+    
     @Injected
     var characterDetailUseCase: CharacterDetailUseCaseProtocol
     

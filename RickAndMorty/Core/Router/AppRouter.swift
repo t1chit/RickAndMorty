@@ -46,8 +46,8 @@ final class AppRouter: ObservableObject, NavigationCoordinator {
     }
     
     func resolveInitialRouter() -> any Routable {
-        let characterListRouter = CharacterListRouter(rootCoordinator: self)
-        return characterListRouter
+        let mainTabViewRouter: TabViewRouter = TabViewRouter(rootCoordinator: self)
+        return mainTabViewRouter
     }
 }
 
