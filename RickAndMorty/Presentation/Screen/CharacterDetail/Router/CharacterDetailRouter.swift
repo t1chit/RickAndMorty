@@ -6,13 +6,19 @@
 //
 
 import SwiftUI
+import Swinject
 
 final class CharacterDetailRouter {
     private let rootCoordinator: NavigationCoordinator
     private let id = UUID() // 👈 Unique identifier for hashing
     let characterId: Int
+    @Injected
+    var characterDetailUseCase: CharacterDetailUseCaseProtocol
     
-    init(rootCoordinator: NavigationCoordinator, characterId: Int) {
+    init(
+        rootCoordinator: NavigationCoordinator,
+        characterId: Int,
+    ) {
         self.rootCoordinator = rootCoordinator
         self.characterId = characterId
     }
@@ -26,7 +32,9 @@ final class CharacterDetailRouter {
 
 extension CharacterDetailRouter: Routable {
     func makeView() -> AnyView {
-        let vm = CharacterDetailViewModel(id: characterId, router: self)
+        let vm = CharacterDetailViewModel(id: characterId,
+                                          router: self,
+                                          characterDetailUseCase: characterDetailUseCase)
         let view = CharacterDetailView(vm: vm)
         return AnyView(view)
     }

@@ -15,7 +15,7 @@
 
 import Foundation
 
-struct Character: Decodable, Identifiable {
+struct CharacterDetail: Decodable, Identifiable {
     let id: Int
     let name: String
     let status: String
@@ -32,5 +32,5 @@ struct Character: Decodable, Identifiable {
 
 struct CharactersList: Decodable {
     let info: Info
-    let results: [Character]
+    let results: [CharacterDetail]
 }

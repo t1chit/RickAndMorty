@@ -26,7 +26,7 @@ extension Endpoint {
     var urlRequest: URLRequest? {
         var components = URLComponents(url: baseURL.appendingPathComponent(path), resolvingAgainstBaseURL: false)
         components?.queryItems = queryItems
-
+        
         guard let url = components?.url else { return nil }
         
         var request = URLRequest(url: url)
@@ -41,6 +41,7 @@ extension Endpoint {
 // MARK: - Endpoint Manager
 enum EndPointsManager: Endpoint {
     case getCharacters
+    case getCharacterDetials(id: Int)
 }
 
 extension EndPointsManager {
@@ -52,25 +53,36 @@ extension EndPointsManager {
         switch self {
         case .getCharacters:
             return "/api/character"
+        case .getCharacterDetials(id: let id):
+            return "/api/character/\(id)"
         }
     }
     
     var method: HTTPMethod {
         switch self {
-        case .getCharacters:
+        case .getCharacters, .getCharacterDetials(_):
             return .GET
         }
     }
     
     var headers: [String : String]? {
-        return ["Content-Type": "application/json"]
+        switch self {
+        case .getCharacters, .getCharacterDetials(_):
+            return ["Content-Type": "application/json"]
+        }
     }
     
     var queryItems: [URLQueryItem]? {
-        return nil
+        switch self {
+        case .getCharacters, .getCharacterDetials(_):
+            return nil
+        }
     }
     
     var body: Data? {
-        return nil
+        switch self {
+        case .getCharacters, .getCharacterDetials(_):
+            return nil
+        }
     }
 }

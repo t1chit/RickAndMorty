@@ -1,0 +1,29 @@
+//
+//  FetchCharacterDetailUseCaseProtocol.swift
+//  RickAndMorty
+//
+//  Created by Temur Chitashvili on 30.05.25.
+//
+
+import Foundation
+
+protocol CharacterDetailUseCaseProtocol {
+    func execute(characterID id: Int) async throws -> CharacterDetail
+}
+
+final class CharacterDetailUseCase: CharacterDetailUseCaseProtocol {
+    private let characterDetailRepository: CharacterDetailRepositoryProtocol
+    
+    init(characterDetailRepository: CharacterDetailRepositoryProtocol) {
+        self.characterDetailRepository = characterDetailRepository
+    }
+    
+    func execute(characterID id: Int) async throws -> CharacterDetail {
+        do {
+            return try await characterDetailRepository.fetchCharacter(id: id)
+        } catch {
+            print("Error fetching character detail in use case: \(error)")
+            throw error // Important: rethrow after logging
+        }
+    }
+}
