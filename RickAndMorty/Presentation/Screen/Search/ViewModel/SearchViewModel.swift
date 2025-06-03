@@ -25,6 +25,7 @@ enum SearchIntent {
     case updateQuery(String)
     case performSearch
 }
+
 @Observable
 final class SearchViewModel {
     private let router: SearchRouter

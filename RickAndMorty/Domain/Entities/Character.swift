@@ -32,5 +32,5 @@ struct CharacterDetail: Decodable, Identifiable {
 
 struct CharactersList: Decodable {
     let info: Info
-    let results: [CharacterDetail]
+    var results: [CharacterDetail]
 }

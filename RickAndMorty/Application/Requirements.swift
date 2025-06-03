@@ -12,7 +12,7 @@
 /// Clean +
 /// Network Reusable +
 /// Dependency Injection +
-/// MVI
+/// MVI +
 /// Navigation Stack +
 /// Router +
 /// ViewFactory +

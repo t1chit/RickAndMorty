@@ -13,7 +13,6 @@ struct SearchView: View {
         viewStates()
     }
     
-    
     private func viewStates() -> some View {
         VStack {
             SearchBarView(text: Binding(

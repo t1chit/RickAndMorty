@@ -26,7 +26,17 @@ struct CharactersListView: View {
             if vm.state.characterList == nil {
                 Text("Found the error \(String(describing: vm.state.error))!")
             } else {
-                content()
+                VStack(spacing: 8) {
+                    content()
+                    
+                    if vm.state.moreCharactersAreLoading {
+                        VStack(spacing: 4) {
+                            ProgressView()
+                            
+                            Text("Loading more...")
+                        }
+                    }
+                }
             }
         }
     }
@@ -38,6 +48,13 @@ struct CharactersListView: View {
                     CharacterCard(character: character)
                         .onTapGesture {
                             vm.send(.characterSelected(withID: character.id))
+                        }
+                        .onAppear {
+                            guard let id = vm.state.characterList?.results.last?.id else { return }
+                            
+                            if character.id == id {
+                                vm.send(.loadMoreCharacters)
+                            }
                         }
                 }
             }
@@ -63,15 +80,22 @@ struct CharacterCard: View {
     }
     
     private func image() -> some View {
-        AsyncImage(url: URL(string: character.image)) { image in
-            image
-                .resizable()
-                .frame(width: 200, height: 200)
-                .cornerRadius(16)
-        } placeholder: {
-            ProgressView()
+        CachedImage(url: character.image) { phase in
+            switch phase {
+            case .empty:
+                ProgressView()
+                    .frame(width: 200, height: 200)
+            case .success(let image):
+                image
+                    .resizable()
+                    .frame(width: 200, height: 200)
+                    .cornerRadius(16)
+            case .failure( _ ):
+                Image(systemName: "xmark.circle")
+            @unknown default:
+                fatalError()
+            }
         }
-        
     }
     
     private func characterContent() -> some View {

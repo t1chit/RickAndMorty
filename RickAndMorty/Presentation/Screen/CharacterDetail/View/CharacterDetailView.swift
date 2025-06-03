@@ -46,18 +46,26 @@ struct CharacterDetailView: View {
     private func characterDetailsView(with character: CharacterDetail) -> some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 16) {
-                // Character Image
-                AsyncImage(url: URL(string: character.image)) { image in
-                    image
-                        .resizable()
-                        .scaledToFill()
-                        .frame(height: 300)
-                        .clipped()
-                } placeholder: {
-                    ProgressView()
-                        .frame(height: 300)
-                }
                 
+                CachedImage(url: character.image) { phase in
+                    switch  phase {
+                    case .empty:
+                        ProgressView()
+                            .frame(height: 300)
+                    case .success(let image):
+                        image
+                            .resizable()
+                            .scaledToFill()
+                            .frame(height: 300)
+                            .clipped()
+                    case .failure( _ ):
+                        Image(systemName: "xmark.circle")
+                    @unknown default:
+                        fatalError()
+                    
+                        
+                    }
+                }
                 // Basic Info
                 VStack(alignment: .leading, spacing: 8) {
                     Text(character.name)

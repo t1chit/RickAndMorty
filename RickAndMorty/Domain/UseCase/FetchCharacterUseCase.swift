@@ -10,6 +10,7 @@ import Foundation
 
 protocol FetchCharacterUseCaseProtocol {
     func execute() async throws -> CharactersList
+    func execute(page: Int) async throws -> CharactersList
 }
 
 final class FetchCharacterUseCase: FetchCharacterUseCaseProtocol {
@@ -25,6 +26,15 @@ final class FetchCharacterUseCase: FetchCharacterUseCaseProtocol {
         } catch {
             print("Error fetching character list in use case: \(error)")
             throw error // Important: rethrow after logging
+        }
+    }
+    
+    func execute(page: Int) async throws -> CharactersList {
+        do {
+            return try await repository.fetchMoreCharacters(page: page)
+        } catch {
+            print("Error fetching characters with pagination")
+            throw error
         }
     }
 }

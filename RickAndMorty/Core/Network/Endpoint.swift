@@ -43,6 +43,7 @@ enum EndPointsManager: Endpoint {
     case getCharacters
     case getCharacterDetials(id: Int)
     case searchCharacter(name: String)
+    case getCharactersWithPagination(page: Int)
 }
 
 extension EndPointsManager {
@@ -52,23 +53,24 @@ extension EndPointsManager {
     
     var path: String {
         switch self {
-        case .getCharacters, .searchCharacter(_):
+        case .getCharacters, .searchCharacter(_), .getCharactersWithPagination(_):
             return "/api/character"
-        case .getCharacterDetials(id: let id):
+        case .getCharacterDetials(let id):
             return "/api/character/\(id)"
+            
         }
     }
     
     var method: HTTPMethod {
         switch self {
-        case .getCharacters, .getCharacterDetials(_), .searchCharacter(_):
+        case .getCharacters, .getCharacterDetials(_), .searchCharacter(_), .getCharactersWithPagination(_):
             return .GET
         }
     }
     
     var headers: [String : String]? {
         switch self {
-        case .getCharacters, .getCharacterDetials(_), .searchCharacter(_):
+        case .getCharacters, .getCharacterDetials(_), .searchCharacter(_), .getCharactersWithPagination(_):
             return ["Content-Type": "application/json"]
         }
     }
@@ -79,12 +81,14 @@ extension EndPointsManager {
             return nil
         case .searchCharacter(let name):
             return [URLQueryItem(name: "name", value: name)]
+        case .getCharactersWithPagination(let page):
+            return [URLQueryItem(name: "page", value: String(page))]
         }
     }
     
     var body: Data? {
         switch self {
-        case .getCharacters, .getCharacterDetials(_), .searchCharacter(_):
+        case .getCharacters, .getCharacterDetials(_), .searchCharacter(_), .getCharactersWithPagination(_):
             return nil
         }
     }

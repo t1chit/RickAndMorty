@@ -15,9 +15,14 @@ final class CharacterDetailRepository: CharacterDetailRepositoryProtocol {
     }
     
     func fetchCharacter(id: Int)  async throws -> CharacterDetail {
-        let response: CharacterDetail = try await networkService.request(EndPointsManager.getCharacterDetials(id: id), responseType: CharacterDetail.self)
+        do {
+            let response: CharacterDetail = try await networkService.request(EndPointsManager.getCharacterDetials(id: id), responseType: CharacterDetail.self)
+            
+            return response
+        } catch {
+            throw error
+        }
         
-        return response
     }
     
     
