@@ -17,30 +17,30 @@ typealias Routable = ViewFactory & Hashable
 
 // MARK: - Navigation Coordinator Protocol
 protocol NavigationCoordinator {
-    func push(_ path: any Routable)
-    func pop()
-    func popToRoot()
+    func push(_ path: any Routable) async
+    func pop() async
+    func popToRoot() async
 }
 
 // MARK: - App Router Class
 final class AppRouter: ObservableObject, NavigationCoordinator {
     @Published var paths = NavigationPath()
     
-    func push(_ router: any Routable) {
-        DispatchQueue.main.async { [weak self] in
+    func push(_ router: any Routable) async {
+        await MainActor.run { [weak self] in
             let wrappedRouter = AnyRoutable(router)
             self?.paths.append(wrappedRouter)
         }
     }
     
-    func pop() {
-        DispatchQueue.main.async { [weak self] in
+    func pop() async {
+        await MainActor.run { [weak self] in
             self?.paths.removeLast()
         }
     }
     
-    func popToRoot() {
-        DispatchQueue.main.async { [weak self] in
+    func popToRoot() async {
+        await MainActor.run { [weak self] in
             self?.paths.removeLast(self?.paths.count ?? 0)
         }
     }

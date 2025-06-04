@@ -20,7 +20,7 @@
 
 // yvelaferi default private ❓
 // any view ar vixmarot -> View Type ❓
-// MainActor ad gadavaketot GCD ❓
+// MainActor ad gadavaketot GCD ✅
 // live searching ❓
 // searchidan detalebis gverdze ❓
 // searchbar gadavaketot searchable ❓

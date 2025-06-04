@@ -81,8 +81,8 @@ final class DefaultCharacterListViewModel {
         state.moreCharactersAreLoading = false
     }
     
-    private func navigateToDetails(withID id: Int) {
-        router.routeToDetailPage(withID: id)
+    private func navigateToDetails(withID id: Int) async {
+        await router.routeToDetailPage(withID: id)
     }
     
     func send(_ intent: CharacterListIntent) {
@@ -91,9 +91,10 @@ final class DefaultCharacterListViewModel {
             Task {
                 await fetchCharacters()
             }
-            
         case .characterSelected(let id):
-            navigateToDetails(withID: id)
+            Task {
+                await navigateToDetails(withID: id)
+            }
         case .loadMoreCharacters:
             Task {
                 await fetchMoreCharacters()

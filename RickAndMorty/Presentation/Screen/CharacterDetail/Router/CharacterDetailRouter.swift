@@ -23,11 +23,6 @@ final class CharacterDetailRouter {
         self.rootCoordinator = rootCoordinator
         self.characterId = characterId
     }
-    
-    @MainActor
-    func goBack() {
-        rootCoordinator.pop()
-    }
 }
 
 // MARK: - ViewFactory implementation

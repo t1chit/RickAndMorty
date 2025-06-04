@@ -19,9 +19,9 @@ final class CharacterListRouter {
         self.rootCoordinator = rootCoordinator
     }
     
-    func routeToDetailPage(withID id: Int) {
+    func routeToDetailPage(withID id: Int) async {
         let router = CharacterDetailRouter(rootCoordinator: rootCoordinator, characterId: id)
-        rootCoordinator.push(router)
+        await rootCoordinator.push(router)
     }
 }
 
