@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CharacterDetailView: View {
-    @Bindable var vm: CharacterDetailViewModel
+    @StateObject var vm: CharacterDetailViewModel
     var body: some View {
         viewStates()
             .task {

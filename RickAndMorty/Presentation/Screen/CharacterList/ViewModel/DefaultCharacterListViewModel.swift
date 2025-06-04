@@ -33,12 +33,11 @@ protocol CharacterListViewModel: ViewModelInput, ViewModelOutput where
 
 // MARK: - Character List View Model
 
-@Observable
-final class DefaultCharacterListViewModel {
+final class DefaultCharacterListViewModel: ObservableObject {
     private let router: CharacterListRouter
     private let characterListUseCase: FetchCharacterUseCaseProtocol
     
-    var state: CharacterListState = .init()
+    @Published var state: CharacterListState = .init()
     
     init(
         router: CharacterListRouter,

@@ -39,11 +39,10 @@ protocol SearchViewModel: ViewModelInput, ViewModelOutput where
 
 // MARK: - Search View Model
 
-@Observable
-final class DefaultSearchViewModel: SearchViewModel {
+final class DefaultSearchViewModel: SearchViewModel, ObservableObject {
     private let router: SearchRouter
     private let fetchCharacterSearchedUseCase: FetchCharacterSearchedUseCaseProtocol
-    var state: SearchState = .init()
+    @Published var state: SearchState = .init()
     
     
     init(

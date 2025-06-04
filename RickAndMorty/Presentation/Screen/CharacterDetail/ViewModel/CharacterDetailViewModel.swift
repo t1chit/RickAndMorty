@@ -17,13 +17,12 @@ enum CharacterDetailIntent {
     case onAppear
 }
 
-@Observable
-final class CharacterDetailViewModel {
+final class CharacterDetailViewModel: ObservableObject {
     private let id: Int
     private let router: CharacterDetailRouter
     private let characterDetailUseCase: CharacterDetailUseCaseProtocol
     
-    var state: CharacterDetailState = .init()
+    @Published var state: CharacterDetailState = .init()
     
     init(
         id: Int,

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SearchView: View {
-    @Bindable var vm: DefaultSearchViewModel
+    @StateObject var vm: DefaultSearchViewModel
     var body: some View {
         viewStates()
     }

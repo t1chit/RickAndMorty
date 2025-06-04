@@ -32,7 +32,7 @@
 // tool bar ✅
 // paddings ❓
 // text linelimit ❓
-// @Bindable Shevcvalot StateObjectad ❓
+// @Bindable Shevcvalot StateObjectad ✅
 // Calcalke gadavitanot yvela komponenti ❓
 // epizodis detalebi characteris detalebis gverdidan modal sheet ❓
 // Injected tviton viewmodel shi ❓
