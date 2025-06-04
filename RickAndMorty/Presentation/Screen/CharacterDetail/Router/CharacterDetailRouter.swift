@@ -12,10 +12,7 @@ final class CharacterDetailRouter {
     private let rootCoordinator: NavigationCoordinator
     private let id = UUID() // 👈 Unique identifier for hashing
     let characterId: Int
-    
-    @Injected
-    var characterDetailUseCase: CharacterDetailUseCaseProtocol
-    
+        
     init(
         rootCoordinator: NavigationCoordinator,
         characterId: Int,
@@ -29,9 +26,8 @@ final class CharacterDetailRouter {
 
 extension CharacterDetailRouter: Routable {
     func makeView() -> AnyView {
-        let vm = CharacterDetailViewModel(id: characterId,
-                                          router: self,
-                                          characterDetailUseCase: characterDetailUseCase)
+        let vm = DefaultCharacterDetailViewModel(id: characterId,
+                                          router: self)
         let view = CharacterDetailView(vm: vm)
         return AnyView(view)
     }

@@ -30,8 +30,8 @@
 // yvela gverds tavisi title ❓
 // fotoebis chatvirtva ❓
 // tool bar ✅
-// paddings ❓
-// text linelimit ❓
+// paddings ✅
+// text linelimit ✅
 // @Bindable Shevcvalot StateObjectad ✅
 // Calcalke gadavitanot yvela komponenti ❓
 // epizodis detalebi characteris detalebis gverdidan modal sheet ❓

@@ -12,6 +12,7 @@ struct CharactersListView: View {
     
     var body: some View {
         viewStates()
+            .padding(.horizontal)
             .task {
                 vm.send(.onAppear)
             }
@@ -104,6 +105,7 @@ struct CharacterCard: View {
             
             Text(character.name)
                 .font(.headline)
+                .lineLimit(1)
             
             HStack {
                 Text(character.gender)

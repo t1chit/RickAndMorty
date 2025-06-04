@@ -41,16 +41,15 @@ protocol SearchViewModel: ViewModelInput, ViewModelOutput where
 
 final class DefaultSearchViewModel: SearchViewModel, ObservableObject {
     private let router: SearchRouter
-    private let fetchCharacterSearchedUseCase: FetchCharacterSearchedUseCaseProtocol
-    @Published var state: SearchState = .init()
+    @Injected
+    private var fetchCharacterSearchedUseCase: FetchCharacterSearchedUseCaseProtocol
     
+    @Published var state: SearchState = .init()
     
     init(
         router: SearchRouter,
-        fetchCharacterSearchedUseCase: FetchCharacterSearchedUseCaseProtocol,
     ) {
         self.router = router
-        self.fetchCharacterSearchedUseCase = fetchCharacterSearchedUseCase
     }
     
     @MainActor

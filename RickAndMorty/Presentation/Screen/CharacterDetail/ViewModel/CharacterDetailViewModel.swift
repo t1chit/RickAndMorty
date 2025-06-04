@@ -16,22 +16,27 @@ struct CharacterDetailState {
 enum CharacterDetailIntent {
     case onAppear
 }
+// MARK: - Character Detail View Model Protocol
 
-final class CharacterDetailViewModel: ObservableObject {
+protocol CharacterDetailViewModel: ViewModelInput, ViewModelOutput where
+        Intent == CharacterListIntent,
+        State == CharacterListState {}
+
+final class DefaultCharacterDetailViewModel: ObservableObject {
     private let id: Int
     private let router: CharacterDetailRouter
-    private let characterDetailUseCase: CharacterDetailUseCaseProtocol
+    @Injected
+    private var characterDetailUseCase: CharacterDetailUseCaseProtocol
     
-    @Published var state: CharacterDetailState = .init()
+    @Published
+    var state: CharacterDetailState = .init()
     
     init(
         id: Int,
         router: CharacterDetailRouter,
-        characterDetailUseCase: CharacterDetailUseCaseProtocol
     ) {
         self.id = id
         self.router = router
-        self.characterDetailUseCase = characterDetailUseCase
     }
     
     func send(_ intent: CharacterDetailIntent) {
@@ -40,7 +45,7 @@ final class CharacterDetailViewModel: ObservableObject {
             Task {
                 await getCharacterDetail()
             }
-            }
+        }
     }
     
     @MainActor

@@ -12,9 +12,6 @@ final class CharacterListRouter {
     private let rootCoordinator: NavigationCoordinator
     private let id = UUID() // 👈 Unique identifier for hashing
     
-    @Injected
-    var fetchCharacterUseCase: FetchCharacterUseCaseProtocol
-    
     init(rootCoordinator: NavigationCoordinator) {
         self.rootCoordinator = rootCoordinator
     }
@@ -30,7 +27,7 @@ final class CharacterListRouter {
 
 extension CharacterListRouter: Routable {
     func makeView() -> AnyView {
-        let vm = DefaultCharacterListViewModel(router: self, characterListUseCase: fetchCharacterUseCase)
+        let vm = DefaultCharacterListViewModel(router: self)
         let view = CharactersListView(vm: vm)
         return AnyView(view)
     }

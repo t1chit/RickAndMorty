@@ -12,9 +12,6 @@ final class SearchRouter {
     private let rootCoordinator: NavigationCoordinator
     private let id: UUID = UUID()
     
-    @Injected
-    private var fetchCharacterSearchedUseCase: FetchCharacterSearchedUseCaseProtocol
-    
     init(
         rootCoordinator: NavigationCoordinator
     ) {
@@ -25,8 +22,7 @@ final class SearchRouter {
 extension SearchRouter: Routable {
     func makeView() -> AnyView {
         let vm = DefaultSearchViewModel(
-            router: self,
-            fetchCharacterSearchedUseCase: fetchCharacterSearchedUseCase
+            router: self
         )
         let view = SearchView(vm: vm)
         return AnyView(view)

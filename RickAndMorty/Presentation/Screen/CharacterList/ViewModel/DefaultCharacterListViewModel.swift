@@ -35,16 +35,15 @@ protocol CharacterListViewModel: ViewModelInput, ViewModelOutput where
 
 final class DefaultCharacterListViewModel: ObservableObject {
     private let router: CharacterListRouter
-    private let characterListUseCase: FetchCharacterUseCaseProtocol
+    @Injected
+    private var characterListUseCase: FetchCharacterUseCaseProtocol
     
     @Published var state: CharacterListState = .init()
     
     init(
         router: CharacterListRouter,
-        characterListUseCase: FetchCharacterUseCaseProtocol
     ) {
         self.router = router
-        self.characterListUseCase = characterListUseCase
     }
     
     @MainActor
