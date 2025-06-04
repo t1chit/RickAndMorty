@@ -24,6 +24,7 @@ final class CharacterDetailRouter {
         self.characterId = characterId
     }
     
+    @MainActor
     func goBack() {
         rootCoordinator.pop()
     }

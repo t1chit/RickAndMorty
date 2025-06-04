@@ -94,7 +94,6 @@ final class DefaultCharacterListViewModel {
             
         case .characterSelected(let id):
             navigateToDetails(withID: id)
-            
         case .loadMoreCharacters:
             Task {
                 await fetchMoreCharacters()

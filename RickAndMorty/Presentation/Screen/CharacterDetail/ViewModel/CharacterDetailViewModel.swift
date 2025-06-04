@@ -15,7 +15,6 @@ struct CharacterDetailState {
 
 enum CharacterDetailIntent {
     case onAppear
-    case navigateToCharacterList
 }
 
 @Observable
@@ -42,9 +41,7 @@ final class CharacterDetailViewModel {
             Task {
                 await getCharacterDetail()
             }
-        case .navigateToCharacterList:
-            navigateToCharacterList()
-        }
+            }
     }
     
     @MainActor
@@ -61,9 +58,5 @@ final class CharacterDetailViewModel {
         }
         
         state.isLoading = false
-    }
-    
-    private func navigateToCharacterList() {
-        router.goBack()
     }
 }

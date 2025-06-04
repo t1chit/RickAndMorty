@@ -14,14 +14,6 @@ struct CharacterDetailView: View {
             .task {
                 vm.send(.onAppear)
             }
-            .navigationBarBackButtonHidden()
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button("Back") {
-                        vm.send(.navigateToCharacterList)
-                    }
-                }
-            }
     }
     
     @ViewBuilder
@@ -62,7 +54,7 @@ struct CharacterDetailView: View {
                         Image(systemName: "xmark.circle")
                     @unknown default:
                         fatalError()
-                    
+                        
                         
                     }
                 }
