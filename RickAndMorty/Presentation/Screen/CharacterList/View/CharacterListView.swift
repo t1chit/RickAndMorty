@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CharactersListView: View {
-    @Bindable var vm: CharacterListViewModel
+    @Bindable var vm: DefaultCharacterListViewModel
     
     var body: some View {
         viewStates()

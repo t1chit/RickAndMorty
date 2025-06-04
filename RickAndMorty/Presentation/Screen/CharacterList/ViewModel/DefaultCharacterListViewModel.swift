@@ -7,6 +7,8 @@
 
 import Foundation
 
+// MARK: - State
+
 struct CharacterListState {
     var isloading: Bool = false
     var characterList: CharactersList?
@@ -15,18 +17,28 @@ struct CharacterListState {
     var page: Int = 1
 }
 
+// MARK: - Intent
+
 enum CharacterListIntent {
     case onAppear
     case characterSelected(withID: Int)
     case loadMoreCharacters
 }
 
+// MARK: - Character List View Model Protocol
+
+protocol CharacterListViewModel: ViewModelInput, ViewModelOutput where
+         Intent == CharacterListIntent,
+         State == CharacterListState {}
+
+// MARK: - Character List View Model
+
 @Observable
-final class CharacterListViewModel {
+final class DefaultCharacterListViewModel {
     private let router: CharacterListRouter
     private let characterListUseCase: FetchCharacterUseCaseProtocol
     
-    var state = CharacterListState()
+    var state: CharacterListState = .init()
     
     init(
         router: CharacterListRouter,

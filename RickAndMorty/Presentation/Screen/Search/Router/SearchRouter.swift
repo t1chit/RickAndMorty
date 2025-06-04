@@ -15,14 +15,19 @@ final class SearchRouter {
     @Injected
     private var fetchCharacterSearchedUseCase: FetchCharacterSearchedUseCaseProtocol
     
-    init(rootCoordinator: NavigationCoordinator) {
+    init(
+        rootCoordinator: NavigationCoordinator
+    ) {
         self.rootCoordinator = rootCoordinator
     }
 }
 
 extension SearchRouter: Routable {
     func makeView() -> AnyView {
-        let vm = SearchViewModel(router: self, fetchCharacterSearchedUseCase: fetchCharacterSearchedUseCase)
+        let vm = DefaultSearchViewModel(
+            router: self,
+            fetchCharacterSearchedUseCase: fetchCharacterSearchedUseCase
+        )
         let view = SearchView(vm: vm)
         return AnyView(view)
     }

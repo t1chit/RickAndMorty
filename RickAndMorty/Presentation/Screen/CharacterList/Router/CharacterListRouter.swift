@@ -30,7 +30,7 @@ final class CharacterListRouter {
 
 extension CharacterListRouter: Routable {
     func makeView() -> AnyView {
-        let vm = CharacterListViewModel(router: self, characterListUseCase: fetchCharacterUseCase)
+        let vm = DefaultCharacterListViewModel(router: self, characterListUseCase: fetchCharacterUseCase)
         let view = CharactersListView(vm: vm)
         return AnyView(view)
     }
