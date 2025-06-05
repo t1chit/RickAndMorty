@@ -31,8 +31,8 @@ final class Injection {
              CharacterListRepository(networkService: resolver.resolve(NetworkService.self)!)
          }
          
-         container.register(FetchCharacterUseCaseProtocol.self) { resolver in
-             FetchCharacterUseCase(repository: resolver.resolve(CharacterListRepositoryProtocol.self)!)
+         container.register(FetchCharacterListUseCaseProtocol.self) { resolver in
+             FetchCharacterListUseCase(repository: resolver.resolve(CharacterListRepositoryProtocol.self)!)
          }
          
          container.register(CharacterDetailRepositoryProtocol.self) { resolver in

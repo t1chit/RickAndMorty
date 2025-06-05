@@ -9,12 +9,12 @@
 import Foundation
 import Combine
 
-protocol FetchCharacterUseCaseProtocol {
+protocol FetchCharacterListUseCaseProtocol {
     func execute() -> AnyPublisher<CharactersList, NetworkError>
     func execute(page: Int) async throws -> CharactersList
 }
 
-final class FetchCharacterUseCase: FetchCharacterUseCaseProtocol {
+final class FetchCharacterListUseCase: FetchCharacterListUseCaseProtocol {
     private let repository: CharacterListRepositoryProtocol
     
     init(
@@ -27,7 +27,7 @@ final class FetchCharacterUseCase: FetchCharacterUseCaseProtocol {
         return repository.fetchCharacterList()
             .handleEvents(receiveCompletion: { completion in
                 if case let .failure(error) = completion {
-                    print("Subscription error: \(error)")
+                    print("Subscription error in FetchCharacterUseCase: \(error)")
                 }
             })
             .eraseToAnyPublisher()

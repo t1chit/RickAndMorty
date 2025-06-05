@@ -36,7 +36,7 @@ protocol CharacterListViewModel: ViewModelInput, ViewModelOutput where
 final class DefaultCharacterListViewModel: ObservableObject {
     private let router: CharacterListRouter
     @Injected
-    private var characterListUseCase: FetchCharacterUseCaseProtocol
+    private var characterListUseCase: FetchCharacterListUseCaseProtocol
     
     @Published var state: CharacterListState = .init()
     private var cancellables: Set<AnyCancellable> = []
@@ -55,7 +55,6 @@ final class DefaultCharacterListViewModel: ObservableObject {
         characterListUseCase.execute()
             .receive(on: DispatchQueue.main)
             .sink { [weak self] completion in
-                self?.state.isloading = false
                 if case let .failure(error) = completion {
                     self?.state.error = error.localizedDescription
                     print("Error fetching characters: \(error)")

@@ -6,9 +6,10 @@
 //
 
 import Foundation
+import Combine
 
 struct CharacterDetailState {
-    var isLoading: Bool = false
+    var isLoading: Bool = true
     var characterDetail: CharacterDetail?
     var error: String?
 }
@@ -27,7 +28,8 @@ final class DefaultCharacterDetailViewModel: ObservableObject {
     private let router: CharacterDetailRouter
     @Injected
     private var characterDetailUseCase: CharacterDetailUseCaseProtocol
-    
+    private var cancellables: Set<AnyCancellable> = []
+
     @Published
     var state: CharacterDetailState = .init()
     
@@ -42,24 +44,27 @@ final class DefaultCharacterDetailViewModel: ObservableObject {
     func send(_ intent: CharacterDetailIntent) {
         switch intent {
         case .onAppear:
-            Task {
-                await getCharacterDetail()
-            }
+
+                getCharacterDetail()
         }
     }
     
-    @MainActor
-    private func getCharacterDetail() async {
+    private func getCharacterDetail() {
         state.isLoading = true
         state.error = nil
         
-        do {
-            let response = try await characterDetailUseCase.execute(characterID: id)
-            state.characterDetail = response
-        } catch {
-            state.error = error.localizedDescription
-            print("Error fetching character list in view model: \(error)")
-        }
+        characterDetailUseCase.execute(characterID: id)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] completion in
+                if case let .failure(error) = completion {
+                    self?.state.error = error.localizedDescription
+                    print("Error fetching characters details: \(error)")
+                }
+            } receiveValue: { [weak self] response in
+                self?.state.characterDetail = response
+            }
+            .store(in: &cancellables)
+
         
         state.isLoading = false
     }

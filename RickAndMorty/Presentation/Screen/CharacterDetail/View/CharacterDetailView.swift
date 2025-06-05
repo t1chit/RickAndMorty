@@ -19,10 +19,9 @@ struct CharacterDetailView: View {
     
     @ViewBuilder
     private func viewStates() -> some View {
-        switch vm.state.isLoading {
-        case true:
+        if vm.state.isLoading {
             loading()
-        case false:
+        } else {
             if let character = vm.state.characterDetail {
                 characterDetailsView(with: character)
             } else {
