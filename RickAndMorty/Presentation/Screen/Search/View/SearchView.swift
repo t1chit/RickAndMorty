@@ -10,11 +10,11 @@ import SwiftUI
 struct SearchView: View {
     @StateObject var vm: DefaultSearchViewModel
     var body: some View {
-        viewStates()
+        viewStates
             .navigationTitle("Search") 
     }
     
-    private func viewStates() -> some View {
+    private var viewStates: some View {
         VStack {
             SearchBarView(text: Binding(
                                get: { vm.state.query },
@@ -31,7 +31,7 @@ struct SearchView: View {
             case .noResults:
                 Text("No results found...")
             case .results:
-                content()
+                content
             }
             
             
@@ -39,7 +39,7 @@ struct SearchView: View {
         }
     }
     
-    private func content() -> some View {
+    private var content: some View {
         List(vm.state.characterList?.results ?? []) { character in
             Text(character.name)
         }

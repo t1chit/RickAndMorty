@@ -10,7 +10,7 @@ import SwiftUI
 struct CharacterDetailView: View {
     @StateObject var vm: DefaultCharacterDetailViewModel
     var body: some View {
-        viewStates()
+        viewStates
             .navigationTitle("Character Details")
             .task {
                 vm.send(.onAppear)
@@ -18,9 +18,9 @@ struct CharacterDetailView: View {
     }
     
     @ViewBuilder
-    private func viewStates() -> some View {
+    private var viewStates: some View {
         if vm.state.isLoading {
-            loading()
+            loading
         } else {
             if let character = vm.state.characterDetail {
                 characterDetailsView(with: character)
@@ -30,7 +30,7 @@ struct CharacterDetailView: View {
         }
     }
     
-    private func loading() -> some View {
+    private var loading: some View {
         Text("Loading...")
     }
     

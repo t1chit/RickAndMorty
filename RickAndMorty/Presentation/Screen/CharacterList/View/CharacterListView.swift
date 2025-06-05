@@ -11,13 +11,13 @@ struct CharactersListView: View {
     @StateObject var vm: DefaultCharacterListViewModel
     
     var body: some View {
-        viewStates()
+        viewStates
             .navigationTitle("Characters")
             .padding(.horizontal)
     }
     
     @ViewBuilder
-    private func viewStates() -> some View {
+    private var viewStates: some View {
         if vm.state.isloading {
             Text("Loading...")
         } else {
@@ -25,7 +25,7 @@ struct CharactersListView: View {
                 Text("Found the error \(String(describing: vm.state.error))!")
             } else {
                 VStack(spacing: 8) {
-                    content()
+                    content
                     
                     if vm.state.moreCharactersAreLoading {
                         VStack(spacing: 4) {
@@ -39,7 +39,7 @@ struct CharactersListView: View {
         }
     }
     
-    private func content() -> some View {
+    private var content: some View {
         ScrollView {
             LazyVGrid(columns: [GridItem(), GridItem()]) {
                 ForEach(vm.state.characterList?.results ?? []) { character in
