@@ -9,15 +9,19 @@ import SwiftUI
 
 struct MainTabView: View {
     let rootCoordinator: NavigationCoordinator
-    
+    @State private var selectedTab: Int = 1
     var body: some View {
-        TabView {
-            CharacterListRouter(rootCoordinator: rootCoordinator).makeView()
+        TabView(selection: $selectedTab) {
+            CharacterListRouter(rootCoordinator: rootCoordinator)
+                .makeView()
+                .tag(1)
                 .tabItem {
                     Label("Characters", systemImage: "person.3")
                 }
             
-            SearchRouter(rootCoordinator: rootCoordinator).makeView()
+            SearchRouter(rootCoordinator: rootCoordinator)
+                .makeView()
+                .tag(2)
                 .tabItem {
                     Label("Search", systemImage: "magnifyingglass")
                 }

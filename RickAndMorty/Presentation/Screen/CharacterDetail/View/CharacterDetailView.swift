@@ -11,6 +11,7 @@ struct CharacterDetailView: View {
     @StateObject var vm: DefaultCharacterDetailViewModel
     var body: some View {
         viewStates()
+            .navigationTitle("Character Details")
             .task {
                 vm.send(.onAppear)
             }

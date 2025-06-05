@@ -9,12 +9,18 @@ import SwiftUI
 
 struct CharactersListView: View {
     @StateObject var vm: DefaultCharacterListViewModel
+    @State private var contentisFetched: Bool = false
     
     var body: some View {
         viewStates()
+            .navigationTitle("Characters")
             .padding(.horizontal)
             .task {
-                vm.send(.onAppear)
+                if !contentisFetched {
+                    vm.send(.onAppear)
+                }
+                
+                contentisFetched = true
             }
     }
     

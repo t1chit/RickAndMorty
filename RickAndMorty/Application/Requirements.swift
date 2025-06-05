@@ -26,7 +26,7 @@
 // searchbar gadavaketot searchable ❓
 // roca parametrebi ar gvchirdeba uechveli computed property ❓
 // preview gavuketot yvela fails ❓
-// navigation views bug ❓
+// navigation list view bug after navigate back from details ✅
 // yvela gverds tavisi title ❓
 // fotoebis chatvirtva ❓
 // tool bar ✅
@@ -35,7 +35,7 @@
 // @Bindable Shevcvalot StateObjectad ✅
 // Calcalke gadavitanot yvela komponenti ❓
 // epizodis detalebi characteris detalebis gverdidan modal sheet ❓
-// Injected tviton viewmodel shi ❓
+// Injected tviton viewmodel shi ✅
 // DTO Data layer shi ❓
 // async ebi Combine ad
 // Network Type protocol, spaces proektshi vnaxot ❓

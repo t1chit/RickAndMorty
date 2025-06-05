@@ -26,6 +26,8 @@ protocol NavigationCoordinator {
 final class AppRouter: ObservableObject, NavigationCoordinator {
     @Published var paths = NavigationPath()
     
+    var count: Int { paths.count }
+    
     func push(_ router: any Routable) async {
         await MainActor.run { [weak self] in
             let wrappedRouter = AnyRoutable(router)
