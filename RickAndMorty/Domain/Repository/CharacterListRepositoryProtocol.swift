@@ -10,5 +10,5 @@ import Combine
 
 protocol CharacterListRepositoryProtocol {
     func fetchCharacterList() -> AnyPublisher<CharactersList, NetworkError>
-    func fetchMoreCharacters(page: Int) async throws -> CharactersList
+    func fetchMoreCharacters(page: Int) -> AnyPublisher<CharactersList, NetworkError>
 }

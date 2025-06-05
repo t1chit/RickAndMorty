@@ -9,7 +9,6 @@ import SwiftUI
 
 struct CharactersListView: View {
     @StateObject var vm: DefaultCharacterListViewModel
-    @State private var contentisFetched: Bool = false
     
     var body: some View {
         viewStates()
@@ -19,10 +18,9 @@ struct CharactersListView: View {
     
     @ViewBuilder
     private func viewStates() -> some View {
-        switch vm.state.isloading {
-        case true:
+        if vm.state.isloading {
             Text("Loading...")
-        case false:
+        } else {
             if vm.state.characterList == nil {
                 Text("Found the error \(String(describing: vm.state.error))!")
             } else {

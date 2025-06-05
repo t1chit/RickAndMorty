@@ -16,25 +16,18 @@ final class CharacterListRepository: CharacterListRepositoryProtocol {
     ) {
         self.networkService = networkService
     }
-
+    
     func fetchCharacterList() -> AnyPublisher<CharactersList,NetworkError> {
         return networkService.reqest(
-                EndPointsManager.getCharacters,
-                responseType: CharactersList.self
-            )
+            EndPointsManager.getCharacters,
+            responseType: CharactersList.self
+        )
     }
     
-    func fetchMoreCharacters(page: Int) async throws -> CharactersList {
-        do {
-            
-            let response: CharactersList = try await networkService.request(
-                EndPointsManager.getCharactersWithPagination(page: page),
-                responseType: CharactersList.self
-            )
-            return response
-        } catch {
-            throw error
-        }
-        
+    func fetchMoreCharacters(page: Int) -> AnyPublisher<CharactersList,NetworkError> {
+        return networkService.reqest(
+            EndPointsManager.getCharactersWithPagination(page: page),
+            responseType: CharactersList.self
+        )
     }
 }

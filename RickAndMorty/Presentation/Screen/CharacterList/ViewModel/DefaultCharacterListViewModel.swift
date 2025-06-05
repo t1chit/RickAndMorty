@@ -28,8 +28,8 @@ enum CharacterListIntent {
 // MARK: - Character List View Model Protocol
 
 protocol CharacterListViewModel: ViewModelInput, ViewModelOutput where
-         Intent == CharacterListIntent,
-         State == CharacterListState {}
+Intent == CharacterListIntent,
+State == CharacterListState {}
 
 // MARK: - Character List View Model
 
@@ -55,6 +55,8 @@ final class DefaultCharacterListViewModel: ObservableObject {
         characterListUseCase.execute()
             .receive(on: DispatchQueue.main)
             .sink { [weak self] completion in
+                self?.state.isloading = false
+
                 if case let .failure(error) = completion {
                     self?.state.error = error.localizedDescription
                     print("Error fetching characters: \(error)")
@@ -63,26 +65,28 @@ final class DefaultCharacterListViewModel: ObservableObject {
                 self?.state.characterList = response
             }
             .store(in: &cancellables)
-
-        state.isloading = false
+        
     }
     
-    @MainActor
-    private func fetchMoreCharacters() async {
+    private func fetchMoreCharacters() {
         state.moreCharactersAreLoading = true
         state.error = nil
         state.page += 1
-            
-        do {
-            let response = try await characterListUseCase.execute(page: state.page)
-            state.characterList?.results.append(contentsOf: response.results)
-            
-        } catch {
-            state.error = error.localizedDescription
-            print("Can not fetch more characters: \(error)")
-        }
         
-        state.moreCharactersAreLoading = false
+        characterListUseCase.execute(page: state.page)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] completion in
+                self?.state.moreCharactersAreLoading = false
+
+                if case let .failure(error) = completion {
+                    self?.state.error = error.localizedDescription
+                    print("Error fetching characters: \(error)")
+                }
+            } receiveValue: { [weak self] response in
+                self?.state.characterList?.results.append(contentsOf: response.results)
+            }
+            .store(in: &cancellables)
+        
     }
     
     private func navigateToDetails(withID id: Int) async {
@@ -96,9 +100,7 @@ final class DefaultCharacterListViewModel: ObservableObject {
                 await navigateToDetails(withID: id)
             }
         case .loadMoreCharacters:
-            Task {
-                await fetchMoreCharacters()
-            }
+            fetchMoreCharacters()
         }
     }
 }

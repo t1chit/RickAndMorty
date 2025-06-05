@@ -54,10 +54,9 @@ struct CharacterDetailView: View {
                         Image(systemName: "xmark.circle")
                     @unknown default:
                         fatalError()
-                        
-                        
                     }
                 }
+                
                 // Basic Info
                 VStack(alignment: .leading, spacing: 8) {
                     Text(character.name)

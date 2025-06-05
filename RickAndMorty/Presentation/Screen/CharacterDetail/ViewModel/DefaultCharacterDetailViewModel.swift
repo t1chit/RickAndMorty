@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 struct CharacterDetailState {
-    var isLoading: Bool = true
+    var isLoading: Bool = false
     var characterDetail: CharacterDetail?
     var error: String?
 }
@@ -56,6 +56,8 @@ final class DefaultCharacterDetailViewModel: ObservableObject {
         characterDetailUseCase.execute(characterID: id)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] completion in
+                self?.state.isLoading = false
+                
                 if case let .failure(error) = completion {
                     self?.state.error = error.localizedDescription
                     print("Error fetching characters details: \(error)")
@@ -64,8 +66,5 @@ final class DefaultCharacterDetailViewModel: ObservableObject {
                 self?.state.characterDetail = response
             }
             .store(in: &cancellables)
-
-        
-        state.isLoading = false
     }
 }

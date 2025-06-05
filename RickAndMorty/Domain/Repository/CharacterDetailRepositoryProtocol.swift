@@ -10,5 +10,4 @@ import Combine
 
 protocol CharacterDetailRepositoryProtocol {
     func fetchCharacter(id: Int)  -> AnyPublisher<CharacterDetail, NetworkError>
-//    func fetchCharacter(id: Int)  async throws -> CharacterDetail
 }
