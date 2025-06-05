@@ -9,9 +9,15 @@ import SwiftUI
 
 @main
 struct RickAndMortyApp: App {
+    @StateObject private var appRouter: AppRouter = .init()
     var body: some Scene {
         WindowGroup {
-            CustomNavigationView(appRouter: .init())
+            NavigationStack(path: $appRouter.paths) {
+                appRouter.resolveInitialRouter().makeView()
+                    .navigationDestination(for: AnyRoutable.self) { factory in
+                        factory.makeView()
+                    }
+            }
         }
     }
 }

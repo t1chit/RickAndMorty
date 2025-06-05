@@ -10,7 +10,9 @@ import Foundation
 final class CharacterDetailRepository: CharacterDetailRepositoryProtocol {
     private let networkService: NetworkServiceProtocol
     
-    init(networkService: NetworkServiceProtocol) {
+    init(
+        networkService: NetworkServiceProtocol
+    ) {
         self.networkService = networkService
     }
     
@@ -24,6 +26,4 @@ final class CharacterDetailRepository: CharacterDetailRepositoryProtocol {
         }
         
     }
-    
-    
 }

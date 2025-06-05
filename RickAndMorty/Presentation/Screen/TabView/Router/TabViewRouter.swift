@@ -11,7 +11,9 @@ final class TabViewRouter {
     private let rootCoordinator: NavigationCoordinator
     private let id = UUID()
     
-    init(rootCoordinator: NavigationCoordinator) {
+    init(
+        rootCoordinator: NavigationCoordinator
+    ) {
         self.rootCoordinator = rootCoordinator
     }
 }

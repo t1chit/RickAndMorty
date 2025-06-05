@@ -15,13 +15,6 @@ struct CharactersListView: View {
         viewStates()
             .navigationTitle("Characters")
             .padding(.horizontal)
-            .task {
-                if !contentisFetched {
-                    vm.send(.onAppear)
-                }
-                
-                contentisFetched = true
-            }
     }
     
     @ViewBuilder

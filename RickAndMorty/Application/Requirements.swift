@@ -23,12 +23,11 @@
 // MainActor ad gadavaketot GCD ✅
 // live searching ❓
 // searchidan detalebis gverdze ❓
-// searchbar gadavaketot searchable ❓
+
 // roca parametrebi ar gvchirdeba uechveli computed property ❓
 // preview gavuketot yvela fails ❓
 // navigation list view bug after navigate back from details ✅
-// yvela gverds tavisi title ❓
-// fotoebis chatvirtva ❓
+// fotoebis chatvirtva ✅
 // tool bar ✅
 // paddings ✅
 // text linelimit ✅
@@ -44,4 +43,7 @@
 // Network Module Full independent ❓
 // UI Modul - Components ❓
 // 3 productul modul, character list, character detail, character search. ❓
-
+/// აქ პრობლემა არ არის როუტერში, პრობლემა არის TabView ში, TestNav პროექტში ყველაფერი პრიმიტუილად არის მაგრამ თაითლებს მაინც ვერ ვუთითებ ტაბვიუში მყოფ ვიუებს.
+/// ტაბვიუს შეუძლია ჰქონდეს თაითლები, მაგრამ მის შიგნით მყოფ გვერდებს არა.
+// searchbar gadavaketot searchable ❓
+// yvela gverds tavisi title ❓

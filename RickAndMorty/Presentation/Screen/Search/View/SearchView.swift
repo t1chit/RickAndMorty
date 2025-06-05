@@ -11,18 +11,17 @@ struct SearchView: View {
     @StateObject var vm: DefaultSearchViewModel
     var body: some View {
         viewStates()
-            .navigationTitle("Search")
-            .searchable(text: $vm.state.query) 
+            .navigationTitle("Search") 
     }
     
     private func viewStates() -> some View {
         VStack {
-//            SearchBarView(text: Binding(
-//                               get: { vm.state.query },
-//                               set: { vm.send(.updateQuery($0)) }
-//            )) {
-//                vm.send(.performSearch)
-//            }
+            SearchBarView(text: Binding(
+                               get: { vm.state.query },
+                               set: { vm.send(.updateQuery($0)) }
+            )) {
+                vm.send(.performSearch)
+            }
             
             switch vm.state.phase {
             case .idle:

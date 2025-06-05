@@ -53,20 +53,6 @@ final class AppRouter: ObservableObject, NavigationCoordinator {
     }
 }
 
-// MARK: - Custom Navigation View
-struct CustomNavigationView: View {
-    @StateObject var appRouter: AppRouter
-    
-    var body: some View {
-        NavigationStack(path: $appRouter.paths) {
-            appRouter.resolveInitialRouter().makeView()
-                .navigationDestination(for: AnyRoutable.self) { factory in
-                    factory.makeView()
-                }
-        }
-    }
-}
-
 // MARK: - A type-erased wrapper for Routable
 
 struct AnyRoutable: Routable {

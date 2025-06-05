@@ -11,17 +11,17 @@ struct MainTabView: View {
     let rootCoordinator: NavigationCoordinator
     @State private var selectedTab: Int = 1
     var body: some View {
-        TabView(selection: $selectedTab) {
+        TabView {
             CharacterListRouter(rootCoordinator: rootCoordinator)
                 .makeView()
-                .tag(1)
+                .tag(0)
                 .tabItem {
                     Label("Characters", systemImage: "person.3")
                 }
             
             SearchRouter(rootCoordinator: rootCoordinator)
                 .makeView()
-                .tag(2)
+                .tag(1)
                 .tabItem {
                     Label("Search", systemImage: "magnifyingglass")
                 }

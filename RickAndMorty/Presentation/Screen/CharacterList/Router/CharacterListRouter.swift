@@ -7,12 +7,15 @@
 
 import SwiftUI
 import Swinject
+
 // MARK: - CharacterListRouter
 final class CharacterListRouter {
     private let rootCoordinator: NavigationCoordinator
     private let id = UUID() // 👈 Unique identifier for hashing
     
-    init(rootCoordinator: NavigationCoordinator) {
+    init(
+        rootCoordinator: NavigationCoordinator
+    ) {
         self.rootCoordinator = rootCoordinator
     }
     

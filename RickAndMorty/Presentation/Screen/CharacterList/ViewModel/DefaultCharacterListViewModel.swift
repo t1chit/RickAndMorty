@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Combine
 
 // MARK: - State
 
@@ -20,7 +21,6 @@ struct CharacterListState {
 // MARK: - Intent
 
 enum CharacterListIntent {
-    case onAppear
     case characterSelected(withID: Int)
     case loadMoreCharacters
 }
@@ -39,25 +39,32 @@ final class DefaultCharacterListViewModel: ObservableObject {
     private var characterListUseCase: FetchCharacterUseCaseProtocol
     
     @Published var state: CharacterListState = .init()
+    private var cancellables: Set<AnyCancellable> = []
     
     init(
         router: CharacterListRouter,
     ) {
         self.router = router
+        fetchCharacters()
     }
     
-    @MainActor
-    private func fetchCharacters() async {
+    private func fetchCharacters() {
         state.isloading = true
         state.error = nil
         
-        do {
-            let response = try await characterListUseCase.execute()
-            state.characterList = response
-        } catch {
-            state.error = error.localizedDescription
-            print("Error fetching character list in view model: \(error)")
-        }
+        characterListUseCase.execute()
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] completion in
+                self?.state.isloading = false
+                if case let .failure(error) = completion {
+                    self?.state.error = error.localizedDescription
+                    print("Error fetching characters: \(error)")
+                }
+            } receiveValue: { [weak self] response in
+                self?.state.characterList = response
+            }
+            .store(in: &cancellables)
+
         state.isloading = false
     }
     
@@ -85,10 +92,6 @@ final class DefaultCharacterListViewModel: ObservableObject {
     
     func send(_ intent: CharacterListIntent) {
         switch intent {
-        case .onAppear:
-            Task {
-                await fetchCharacters()
-            }
         case .characterSelected(let id):
             Task {
                 await navigateToDetails(withID: id)

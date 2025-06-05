@@ -7,26 +7,30 @@
 
 
 import Foundation
+import Combine
 
 protocol FetchCharacterUseCaseProtocol {
-    func execute() async throws -> CharactersList
+    func execute() -> AnyPublisher<CharactersList, NetworkError>
     func execute(page: Int) async throws -> CharactersList
 }
 
 final class FetchCharacterUseCase: FetchCharacterUseCaseProtocol {
     private let repository: CharacterListRepositoryProtocol
     
-    init(repository: CharacterListRepositoryProtocol) {
+    init(
+        repository: CharacterListRepositoryProtocol
+    ) {
         self.repository = repository
     }
-    
-    func execute() async throws -> CharactersList {
-        do {
-            return try await repository.fetchCharacterList()
-        } catch {
-            print("Error fetching character list in use case: \(error)")
-            throw error // Important: rethrow after logging
-        }
+
+    func execute() -> AnyPublisher<CharactersList, NetworkError> {
+        return repository.fetchCharacterList()
+            .handleEvents(receiveCompletion: { completion in
+                if case let .failure(error) = completion {
+                    print("Subscription error: \(error)")
+                }
+            })
+            .eraseToAnyPublisher()
     }
     
     func execute(page: Int) async throws -> CharactersList {

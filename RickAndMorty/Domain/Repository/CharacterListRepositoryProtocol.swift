@@ -6,8 +6,9 @@
 //
 
 import Foundation
+import Combine
 
 protocol CharacterListRepositoryProtocol {
-    func fetchCharacterList() async throws -> CharactersList
+    func fetchCharacterList() -> AnyPublisher<CharactersList, NetworkError>
     func fetchMoreCharacters(page: Int) async throws -> CharactersList
 }
