@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import RM_Core
 
 struct CharacterDetailView: View {
     @StateObject var vm: DefaultCharacterDetailViewModel

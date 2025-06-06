@@ -7,7 +7,7 @@
 
 import Foundation
 import Combine
-
+import RM_Network_Service
 protocol CharacterDetailUseCaseProtocol {
     func execute(characterID id: Int) -> AnyPublisher<CharacterDetailDomain, NetworkError>
 }

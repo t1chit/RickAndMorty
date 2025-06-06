@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <FileRef
+      location = "group:RM_Core/RM_Core.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:RM_Network_Service/RM_Network_Service.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:RickAndMorty.xcodeproj">
+   </FileRef>
+</Workspace>

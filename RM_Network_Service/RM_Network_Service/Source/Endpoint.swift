@@ -1,19 +1,19 @@
 //
-//  Endpoint.swift
-//  CleanRickAndMorty
+//  HTTPMethod.swift
+//  RM_Network_Service
 //
-//  Created by Temur Chitashvili on 23.05.25.
+//  Created by Temur Chitashvili on 06.06.25.
 //
 
 import Foundation
 
 // MARK: - HTTP Method Enum
-enum HTTPMethod: String {
+public enum HTTPMethod: String {
     case GET, POST, PUT, DELETE
 }
 
 // MARK: - Endpoint Protocol
-protocol Endpoint {
+public protocol Endpoint {
     var baseURL: URL { get }
     var path: String { get }
     var method: HTTPMethod { get }
@@ -22,7 +22,7 @@ protocol Endpoint {
     var body: Data? { get }
 }
 
-extension Endpoint {
+public extension Endpoint {
     var urlRequest: URLRequest? {
         var components = URLComponents(url: baseURL.appendingPathComponent(path), resolvingAgainstBaseURL: false)
         components?.queryItems = queryItems
@@ -39,14 +39,14 @@ extension Endpoint {
 }
 
 // MARK: - Endpoint Manager
-enum EndPointsManager: Endpoint {
+public enum EndPointsManager: Endpoint {
     case getCharacters
     case getCharacterDetials(id: Int)
     case searchCharacter(name: String)
     case getCharactersWithPagination(page: Int)
 }
 
-extension EndPointsManager {
+public extension EndPointsManager {
     var baseURL: URL {
         return URL(string: "https://rickandmortyapi.com")!
     }

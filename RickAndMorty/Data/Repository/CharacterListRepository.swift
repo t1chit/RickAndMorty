@@ -8,6 +8,7 @@
 import Foundation
 import Combine
 import Swinject
+import RM_Network_Service
 
 final class CharacterListRepository: CharacterListRepositoryProtocol {
     private let networkService: NetworkServiceProtocol

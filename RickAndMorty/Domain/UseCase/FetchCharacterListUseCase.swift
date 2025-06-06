@@ -8,6 +8,7 @@
 
 import Foundation
 import Combine
+import RM_Network_Service
 
 protocol FetchCharacterListUseCaseProtocol {
     func execute() -> AnyPublisher<CharacterListDomain, NetworkError>

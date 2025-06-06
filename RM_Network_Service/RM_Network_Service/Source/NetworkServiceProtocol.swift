@@ -1,14 +1,15 @@
 //
-//  NetworkService.swift
-//  CleanRickAndMorty
+//  NetworkServiceProtocol.swift
+//  RM_Network_Service
 //
-//  Created by Temur Chitashvili on 23.05.25.
+//  Created by Temur Chitashvili on 06.06.25.
 //
+
 
 import Foundation
 import Combine
 
-protocol NetworkServiceProtocol {
+public protocol NetworkServiceProtocol {
     func request<T: Decodable>(
         _ endpoint: Endpoint,
         responseType: T.Type
@@ -20,8 +21,10 @@ protocol NetworkServiceProtocol {
     ) -> AnyPublisher<T, NetworkError>
 }
 
-final class NetworkService: NetworkServiceProtocol {
-    func reqest<T: Decodable>(
+public final class NetworkService: NetworkServiceProtocol {
+    public init() { }
+    
+    public func reqest<T: Decodable>(
         _ endpoint: any Endpoint,
         responseType: T.Type
     ) -> AnyPublisher<T,NetworkError> {
@@ -49,7 +52,7 @@ final class NetworkService: NetworkServiceProtocol {
             .eraseToAnyPublisher()
     }
     
-    func request<T: Decodable>(
+    public func request<T: Decodable>(
         _ endpoint: Endpoint,
         responseType: T.Type
     ) async throws -> T {

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import RM_Core
 
 struct SearchView: View {
     @StateObject var vm: DefaultSearchViewModel

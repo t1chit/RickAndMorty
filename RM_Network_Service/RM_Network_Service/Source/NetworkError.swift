@@ -1,13 +1,14 @@
 //
 //  NetworkError.swift
-//  CleanRickAndMorty
+//  RM_Network_Service
 //
-//  Created by Temur Chitashvili on 23.05.25.
+//  Created by Temur Chitashvili on 06.06.25.
 //
+
 
 import Foundation
 
-enum NetworkError: Error {
+public enum NetworkError: Error {
     case invalidURL
     case invalidResponse
     case decodingFailed

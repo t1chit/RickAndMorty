@@ -1,20 +1,21 @@
 //
 //  CachedImage.swift
-//  RickAndMorty
+//  RM_Core
 //
-//  Created by Temur Chitashvili on 03.06.25.
+//  Created by Temur Chitashvili on 06.06.25.
 //
+
 
 import SwiftUI
 
-struct CachedImage<Content: View>: View {
+public struct CachedImage<Content: View>: View {
     @StateObject private var manager = CachedImageManager()
     let url: String
     let animation: Animation?
     let transition: AnyTransition
     let content: (AsyncImagePhase) -> Content
     
-    init(
+    public init(
         url: String,
         animation: Animation? = nil,
         transition: AnyTransition = .identity,
@@ -25,7 +26,8 @@ struct CachedImage<Content: View>: View {
         self.transition = transition
         self.content = content
     }
-    var body: some View {
+    
+    public var body: some View {
         ZStack {
             switch manager.currentState {
             case .loading:

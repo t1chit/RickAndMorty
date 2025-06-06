@@ -6,6 +6,7 @@
 //
 
 import Swinject
+import RM_Network_Service
 
 final class Injection {
     static let shared = Injection()

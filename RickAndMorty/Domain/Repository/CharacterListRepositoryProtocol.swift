@@ -7,6 +7,7 @@
 
 import Foundation
 import Combine
+import RM_Network_Service
 
 protocol CharacterListRepositoryProtocol {
     func fetchCharacterList() -> AnyPublisher<CharacterListDomain, NetworkError>

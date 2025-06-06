@@ -1,9 +1,10 @@
 //
 //  ImageRetriever.swift
-//  RickAndMorty
+//  RM_Core
 //
-//  Created by Temur Chitashvili on 03.06.25.
+//  Created by Temur Chitashvili on 06.06.25.
 //
+
 
 import Foundation
 
