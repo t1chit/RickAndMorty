@@ -9,5 +9,5 @@ import Foundation
 import Combine
 
 protocol CharacterSearchRepositoryProtocol {
-    func searchCharacters(query: String) -> AnyPublisher<CharactersListDTO, NetworkError>
+    func searchCharacters(query: String) -> AnyPublisher<CharacterListDomain, NetworkError>
 }

@@ -62,7 +62,7 @@ struct CharactersListView: View {
 
 // MARK: - Character Card
 struct CharacterCard: View {
-    let character: CharacterDetailDomain
+    let character: CharacterCardDomain
     
     var body: some View {
         content()

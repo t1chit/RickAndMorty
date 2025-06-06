@@ -10,7 +10,7 @@ import Combine
 
 struct CharacterDetailState {
     var isLoading: Bool = false
-    var characterDetail: CharacterDetailDTO?
+    var characterDetail: CharacterDetailDomain?
     var error: String?
 }
 
@@ -44,7 +44,6 @@ final class DefaultCharacterDetailViewModel: ObservableObject {
     func send(_ intent: CharacterDetailIntent) {
         switch intent {
         case .onAppear:
-
                 getCharacterDetail()
         }
     }

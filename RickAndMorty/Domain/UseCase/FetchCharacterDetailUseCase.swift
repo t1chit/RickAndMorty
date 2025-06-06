@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 protocol CharacterDetailUseCaseProtocol {
-    func execute(characterID id: Int) -> AnyPublisher<CharacterDetailDTO, NetworkError>
+    func execute(characterID id: Int) -> AnyPublisher<CharacterDetailDomain, NetworkError>
 }
 
 final class FetchCharacterDetailUseCaseProtocol: CharacterDetailUseCaseProtocol {
@@ -19,7 +19,7 @@ final class FetchCharacterDetailUseCaseProtocol: CharacterDetailUseCaseProtocol 
         self.repository = characterDetailRepository
     }
     
-    func execute(characterID id: Int)-> AnyPublisher<CharacterDetailDTO, NetworkError> {
+    func execute(characterID id: Int)-> AnyPublisher<CharacterDetailDomain, NetworkError> {
         return repository.fetchCharacter(id: id)
             .handleEvents(receiveCompletion: { completion in
                 if case let .failure(error) = completion {

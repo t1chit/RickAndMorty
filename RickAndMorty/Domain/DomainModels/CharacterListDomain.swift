@@ -8,7 +8,7 @@
 import Foundation
 
 struct CharacterListDomain: Decodable {
-    var characterList: [CharacterDetailDomain]
+    var characterList: [CharacterCardDomain]
     let nextPage: String?
 }
 

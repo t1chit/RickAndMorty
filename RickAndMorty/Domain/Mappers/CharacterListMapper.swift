@@ -16,13 +16,14 @@ final class DefaultCharacterListMapper: CharacterListMapper {
         from dto: CharactersListDTO
     ) -> CharacterListDomain {
         let characters = dto.results.map { characterDTO in
-            CharacterDetailDomain(
+            CharacterCardDomain(
                 id: characterDTO.id,
                 name: characterDTO.name,
                 image: characterDTO.image,
                 gender: characterDTO.gender
             )
         }
+        
         return CharacterListDomain(
             characterList: characters,
             nextPage: dto.info.next

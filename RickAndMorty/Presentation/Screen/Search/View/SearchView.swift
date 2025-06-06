@@ -16,9 +16,7 @@ struct SearchView: View {
     
     private var viewStates: some View {
         VStack {
-            SearchBarView(text: $vm.query) {
-                print("Submit")
-            }
+            SearchBarView(text: $vm.query)
             
             switch vm.state.phase {
             case .idle:
@@ -37,9 +35,12 @@ struct SearchView: View {
     }
     
     private var content: some View {
-        List(vm.state.characterList?.results ?? []) { character in
-            Text(character.name)
+        List(vm.state.characterList?.characterList ?? []) { character in
+            CharacterSearchCard(character: character)
+                .listRowSeparator(.hidden)
+                .listRowBackground(Color.clear)
         }
+        .listStyle(.plain)
     }
 }
 
@@ -49,7 +50,6 @@ struct SearchBarView: View {
     @FocusState private var isFocused: Bool
 
     var placeholder: String = "Search..."
-    var onSubmit: (() -> Void)
 
     var body: some View {
         HStack {
@@ -61,10 +61,7 @@ struct SearchBarView: View {
                 .autocorrectionDisabled(true)
                 .textInputAutocapitalization(.never)
                 .submitLabel(.search)
-                .onSubmit {
-                    onSubmit()
-                }
-            
+              
             if !text.isEmpty {
                 Button(action: {
                     text = ""
@@ -79,5 +76,55 @@ struct SearchBarView: View {
         .cornerRadius(10)
         .padding(.horizontal)
         .animation(.easeInOut(duration: 0.2), value: text)
+    }
+}
+struct CharacterSearchCard: View {
+    let character: CharacterCardDomain
+    
+    var body: some View {
+        content()
+    }
+    
+    private func content() -> some View {
+        HStack(alignment: .top, spacing: 16) {
+            image()
+            
+            characterContent()
+                .padding(.top, 8)
+        }
+    }
+    
+    private func image() -> some View {
+        CachedImage(url: character.image) { phase in
+            switch phase {
+            case .empty:
+                ProgressView()
+                    .frame(width: 80, height: 80)
+            case .success(let image):
+                image
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 80, height: 80)
+                    .clipped()
+                    .cornerRadius(12)
+            case .failure:
+                Image(systemName: "xmark.circle")
+                    .frame(width: 80, height: 80)
+            @unknown default:
+                fatalError()
+            }
+        }
+    }
+    
+    private func characterContent() -> some View {
+        VStack(alignment: .leading, spacing: 6) {
+            Text(character.name)
+                .font(.headline)
+                .lineLimit(1)
+            
+            Text(character.gender)
+                .foregroundColor(.secondary)
+                .font(.subheadline)
+        }
     }
 }

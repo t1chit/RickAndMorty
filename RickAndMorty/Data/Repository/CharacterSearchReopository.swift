@@ -7,10 +7,14 @@
 
 import Foundation
 import Combine
+import Swinject
 
 final class CharacterSearchReopository: CharacterSearchRepositoryProtocol {
     
     private let networkService: NetworkServiceProtocol
+    
+    @Injected
+    private var defaultCharacterListMapper: DefaultCharacterListMapper
     
     init(
         networkService: NetworkServiceProtocol
@@ -18,9 +22,13 @@ final class CharacterSearchReopository: CharacterSearchRepositoryProtocol {
         self.networkService = networkService
     }
     
-    func searchCharacters(query: String) -> AnyPublisher<CharactersListDTO, NetworkError> {
+    func searchCharacters(query: String) -> AnyPublisher<CharacterListDomain, NetworkError> {
         return networkService.reqest(
             EndPointsManager.searchCharacter(name: query),
             responseType: CharactersListDTO.self)
+        .map { dto in
+            return self.defaultCharacterListMapper.map(from: dto)
+        }
+        .eraseToAnyPublisher()
     }
 }

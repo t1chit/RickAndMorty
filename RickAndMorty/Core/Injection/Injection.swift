@@ -55,6 +55,10 @@ final class Injection {
              DefaultCharacterListMapper()
          }
          
+         container.register(DefaultCharacterDetailMapper.self) { _  in
+             DefaultCharacterDetailMapper()
+         }
+         
          return container
      }
     

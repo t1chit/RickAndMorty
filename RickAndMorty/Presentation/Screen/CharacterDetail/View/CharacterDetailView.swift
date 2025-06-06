@@ -35,7 +35,7 @@ struct CharacterDetailView: View {
     }
     
     @ViewBuilder
-    private func characterDetailsView(with character: CharacterDetailDTO) -> some View {
+    private func characterDetailsView(with character: CharacterDetailDomain) -> some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 16) {
                 
@@ -75,8 +75,8 @@ struct CharacterDetailView: View {
                         Text("Type: \(character.type)")
                     }
                     Text("Gender: \(character.gender)")
-                    Text("Origin: \(character.origin.name)")
-                    Text("Current Location: \(character.location.name)")
+                    Text("Origin: \(character.originName)")
+                    Text("Current Location: \(character.locationName)")
                 }
                 .padding(.horizontal)
                 
@@ -86,7 +86,7 @@ struct CharacterDetailView: View {
                 VStack(alignment: .leading, spacing: 8) {
                     Text("Appears in Episodes:")
                         .font(.headline)
-                    ForEach(character.episode, id: \.self) { episode in
+                    ForEach(character.episodes, id: \.self) { episode in
                         Text(episode)
                             .foregroundColor(.blue)
                             .font(.subheadline)
