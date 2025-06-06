@@ -17,17 +17,17 @@ final class CharacterListRepository: CharacterListRepositoryProtocol {
         self.networkService = networkService
     }
     
-    func fetchCharacterList() -> AnyPublisher<CharactersList,NetworkError> {
+    func fetchCharacterList() -> AnyPublisher<CharactersListDTO,NetworkError> {
         return networkService.reqest(
             EndPointsManager.getCharacters,
-            responseType: CharactersList.self
+            responseType: CharactersListDTO.self
         )
     }
     
-    func fetchMoreCharacters(page: Int) -> AnyPublisher<CharactersList,NetworkError> {
+    func fetchMoreCharacters(page: Int) -> AnyPublisher<CharactersListDTO,NetworkError> {
         return networkService.reqest(
             EndPointsManager.getCharactersWithPagination(page: page),
-            responseType: CharactersList.self
+            responseType: CharactersListDTO.self
         )
     }
 }

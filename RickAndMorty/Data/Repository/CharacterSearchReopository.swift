@@ -18,9 +18,9 @@ final class CharacterSearchReopository: CharacterSearchRepositoryProtocol {
         self.networkService = networkService
     }
     
-    func searchCharacters(query: String) -> AnyPublisher<CharactersList, NetworkError> {
+    func searchCharacters(query: String) -> AnyPublisher<CharactersListDTO, NetworkError> {
         return networkService.reqest(
             EndPointsManager.searchCharacter(name: query),
-            responseType: CharactersList.self)
+            responseType: CharactersListDTO.self)
     }
 }

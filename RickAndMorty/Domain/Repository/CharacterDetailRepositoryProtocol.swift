@@ -9,5 +9,5 @@ import Foundation
 import Combine
 
 protocol CharacterDetailRepositoryProtocol {
-    func fetchCharacter(id: Int)  -> AnyPublisher<CharacterDetail, NetworkError>
+    func fetchCharacter(id: Int)  -> AnyPublisher<CharacterDetailDTO, NetworkError>
 }

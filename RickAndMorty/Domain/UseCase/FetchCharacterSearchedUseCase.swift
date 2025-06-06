@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 protocol FetchCharacterSearchedUseCaseProtocol {
-    func execute(query: String) -> AnyPublisher<CharactersList, NetworkError>
+    func execute(query: String) -> AnyPublisher<CharactersListDTO, NetworkError>
 }
 
 final class FetchCharacterSearchedUseCase: FetchCharacterSearchedUseCaseProtocol {
@@ -21,7 +21,7 @@ final class FetchCharacterSearchedUseCase: FetchCharacterSearchedUseCaseProtocol
         self.repository = repository
     }
     
-    func execute(query: String) -> AnyPublisher<CharactersList, NetworkError> {
+    func execute(query: String) -> AnyPublisher<CharactersListDTO, NetworkError> {
         return repository.searchCharacters(query: query)
             .handleEvents(receiveCompletion: { completion in
                 if case let .failure(error) = completion {

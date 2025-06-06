@@ -10,7 +10,7 @@ import Combine
 
 struct CharacterDetailState {
     var isLoading: Bool = false
-    var characterDetail: CharacterDetail?
+    var characterDetail: CharacterDetailDTO?
     var error: String?
 }
 

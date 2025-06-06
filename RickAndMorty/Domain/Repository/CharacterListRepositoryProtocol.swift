@@ -9,6 +9,6 @@ import Foundation
 import Combine
 
 protocol CharacterListRepositoryProtocol {
-    func fetchCharacterList() -> AnyPublisher<CharactersList, NetworkError>
-    func fetchMoreCharacters(page: Int) -> AnyPublisher<CharactersList, NetworkError>
+    func fetchCharacterList() -> AnyPublisher<CharactersListDTO, NetworkError>
+    func fetchMoreCharacters(page: Int) -> AnyPublisher<CharactersListDTO, NetworkError>
 }

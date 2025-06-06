@@ -35,7 +35,7 @@ struct CharacterDetailView: View {
     }
     
     @ViewBuilder
-    private func characterDetailsView(with character: CharacterDetail) -> some View {
+    private func characterDetailsView(with character: CharacterDetailDTO) -> some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 16) {
                 

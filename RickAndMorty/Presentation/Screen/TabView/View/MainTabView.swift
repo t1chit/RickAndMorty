@@ -14,14 +14,12 @@ struct MainTabView: View {
         TabView {
             CharacterListRouter(rootCoordinator: rootCoordinator)
                 .makeView()
-                .tag(0)
                 .tabItem {
                     Label("Characters", systemImage: "person.3")
                 }
             
             SearchRouter(rootCoordinator: rootCoordinator)
                 .makeView()
-                .tag(1)
                 .tabItem {
                     Label("Search", systemImage: "magnifyingglass")
                 }

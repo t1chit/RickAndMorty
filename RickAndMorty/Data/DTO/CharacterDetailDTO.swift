@@ -15,22 +15,18 @@
 
 import Foundation
 
-struct CharacterDetail: Decodable, Identifiable {
+struct CharacterDetailDTO: Decodable, Identifiable {
     let id: Int
     let name: String
     let status: String
     let species: String
     let type: String
     let gender: String
-    let origin: Location
-    let location: Location
+    let origin: LocationDTO
+    let location: LocationDTO
     let image: String
     let episode: [String]
     let url: String
     let created: String
 }
 
-struct CharactersList: Decodable {
-    let info: Info
-    var results: [CharacterDetail]
-}

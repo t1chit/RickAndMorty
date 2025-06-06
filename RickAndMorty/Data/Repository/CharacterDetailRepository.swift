@@ -17,10 +17,10 @@ final class CharacterDetailRepository: CharacterDetailRepositoryProtocol {
         self.networkService = networkService
     }
     
-    func fetchCharacter(id: Int) -> AnyPublisher<CharacterDetail,NetworkError> {
+    func fetchCharacter(id: Int) -> AnyPublisher<CharacterDetailDTO,NetworkError> {
         return networkService.reqest(
             EndPointsManager.getCharacterDetials(id: id),
-            responseType: CharacterDetail.self
+            responseType: CharacterDetailDTO.self
         )
     }
 }

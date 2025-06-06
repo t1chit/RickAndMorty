@@ -12,7 +12,7 @@ import Combine
 
 struct CharacterListState {
     var isloading: Bool = false
-    var characterList: CharactersList?
+    var characterList: CharactersListDTO?
     var moreCharactersAreLoading: Bool = false
     var error: String?
     var page: Int = 1

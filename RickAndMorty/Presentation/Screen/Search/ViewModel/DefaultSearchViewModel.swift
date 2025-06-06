@@ -20,7 +20,7 @@ enum SearchPhase {
 // MARK: - State
 
 struct SearchState {
-    var characterList: CharactersList? = nil
+    var characterList: CharactersListDTO? = nil
     var error: String? = nil
     var phase: SearchPhase = .idle
 }
@@ -73,7 +73,7 @@ final class DefaultSearchViewModel: SearchViewModel, ObservableObject {
             .filter {
                 !$0.isEmpty
             }
-            .flatMap { [weak self] query -> AnyPublisher<CharactersList, NetworkError> in
+            .flatMap { [weak self] query -> AnyPublisher<CharactersListDTO, NetworkError> in
                 guard let self else {
                     return Empty().eraseToAnyPublisher()
                 }

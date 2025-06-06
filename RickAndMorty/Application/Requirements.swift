@@ -33,17 +33,23 @@
 
 
 // Network Type protocol, spaces proektshi vnaxot ❓
+
 // Modular Architecture ❓
 // Cyrcular Dependencie ❓
 // Network Module Full independent ❓
 // UI Modul - Components ❓
 // 3 productul modul, character list, character detail, character search. ❓
+
 // any view ar vixmarot -> View Type ❓
+
 // DTO Data layer shi ❓
+
 // Calcalke gadavitanot yvela komponenti ❓
+
 // epizodis detalebi characteris detalebis gverdidan modal sheet ❓
-// preview gavuketot yvela fails ❓
 // searchidan detalebis gverdze ❓
+
+// preview gavuketot yvela fails ❓
 
 
 /// აქ პრობლემა არ არის როუტერში, პრობლემა არის TabView ში, TestNav პროექტში ყველაფერი პრიმიტუილად არის მაგრამ თაითლებს მაინც ვერ ვუთითებ ტაბვიუში მყოფ ვიუებს.
