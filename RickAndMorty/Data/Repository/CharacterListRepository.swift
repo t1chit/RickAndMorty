@@ -7,9 +7,13 @@
 
 import Foundation
 import Combine
+import Swinject
 
 final class CharacterListRepository: CharacterListRepositoryProtocol {
     private let networkService: NetworkServiceProtocol
+    
+    @Injected
+    private var defaultCharacterListMapper: DefaultCharacterListMapper
     
     init(
         networkService: NetworkServiceProtocol
@@ -17,17 +21,33 @@ final class CharacterListRepository: CharacterListRepositoryProtocol {
         self.networkService = networkService
     }
     
-    func fetchCharacterList() -> AnyPublisher<CharactersListDTO,NetworkError> {
+    func fetchCharacterList() -> AnyPublisher<CharacterListDomain,NetworkError> {
         return networkService.reqest(
             EndPointsManager.getCharacters,
             responseType: CharactersListDTO.self
         )
+        .map { [weak self] dto in
+            guard let self = self else {
+                fatalError("DefaultCharacterListMapper deallocated")
+            }
+            
+            return self.defaultCharacterListMapper.map(from: dto)
+        }
+        .eraseToAnyPublisher()
     }
     
-    func fetchMoreCharacters(page: Int) -> AnyPublisher<CharactersListDTO,NetworkError> {
+    func fetchMoreCharacters(page: Int) -> AnyPublisher<CharacterListDomain,NetworkError> {
         return networkService.reqest(
             EndPointsManager.getCharactersWithPagination(page: page),
             responseType: CharactersListDTO.self
         )
+        .map { [weak self] dto in
+            guard let self = self else {
+                fatalError("DefaultCharacterListMapper deallocated")
+            }
+            
+            return self.defaultCharacterListMapper.map(from: dto)
+        }
+        .eraseToAnyPublisher()
     }
 }

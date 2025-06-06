@@ -10,8 +10,8 @@ import Foundation
 import Combine
 
 protocol FetchCharacterListUseCaseProtocol {
-    func execute() -> AnyPublisher<CharactersListDTO, NetworkError>
-    func execute(page: Int) -> AnyPublisher<CharactersListDTO, NetworkError>
+    func execute() -> AnyPublisher<CharacterListDomain, NetworkError>
+    func execute(page: Int) -> AnyPublisher<CharacterListDomain, NetworkError>
 }
 
 final class FetchCharacterListUseCase: FetchCharacterListUseCaseProtocol {
@@ -23,7 +23,7 @@ final class FetchCharacterListUseCase: FetchCharacterListUseCaseProtocol {
         self.repository = repository
     }
     
-    func execute() -> AnyPublisher<CharactersListDTO, NetworkError> {
+    func execute() -> AnyPublisher<CharacterListDomain, NetworkError> {
         return repository.fetchCharacterList()
             .handleEvents(receiveCompletion: { completion in
                 if case let .failure(error) = completion {
@@ -33,7 +33,7 @@ final class FetchCharacterListUseCase: FetchCharacterListUseCaseProtocol {
             .eraseToAnyPublisher()
     }
     
-    func execute(page: Int) -> AnyPublisher<CharactersListDTO, NetworkError> {
+    func execute(page: Int) -> AnyPublisher<CharacterListDomain, NetworkError> {
         return repository.fetchMoreCharacters(page: page)
             .handleEvents(receiveCompletion: { completion in
                 if case let .failure(error) = completion {

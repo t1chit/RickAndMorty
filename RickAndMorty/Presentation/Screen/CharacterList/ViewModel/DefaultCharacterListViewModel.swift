@@ -12,7 +12,7 @@ import Combine
 
 struct CharacterListState {
     var isloading: Bool = false
-    var characterList: CharactersListDTO?
+    var characterList: CharacterListDomain?
     var moreCharactersAreLoading: Bool = false
     var error: String?
     var page: Int = 1
@@ -83,7 +83,7 @@ final class DefaultCharacterListViewModel: ObservableObject {
                     print("Error fetching characters: \(error)")
                 }
             } receiveValue: { [weak self] response in
-                self?.state.characterList?.results.append(contentsOf: response.results)
+                self?.state.characterList?.characterList.append(contentsOf: response.characterList)
             }
             .store(in: &cancellables)
         

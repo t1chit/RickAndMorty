@@ -42,13 +42,13 @@ struct CharactersListView: View {
     private var content: some View {
         ScrollView {
             LazyVGrid(columns: [GridItem(), GridItem()]) {
-                ForEach(vm.state.characterList?.results ?? []) { character in
+                ForEach(vm.state.characterList?.characterList ?? []) { character in
                     CharacterCard(character: character)
                         .onTapGesture {
                             vm.send(.characterSelected(withID: character.id))
                         }
                         .onAppear {
-                            guard let id = vm.state.characterList?.results.last?.id else { return }
+                            guard let id = vm.state.characterList?.characterList.last?.id else { return }
                             
                             if character.id == id {
                                 vm.send(.loadMoreCharacters)
@@ -62,7 +62,7 @@ struct CharactersListView: View {
 
 // MARK: - Character Card
 struct CharacterCard: View {
-    let character: CharacterDetailDTO
+    let character: CharacterDetailDomain
     
     var body: some View {
         content()

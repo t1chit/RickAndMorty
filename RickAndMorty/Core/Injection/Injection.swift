@@ -51,6 +51,10 @@ final class Injection {
              FetchCharacterSearchedUseCase(repository: resolver.resolve(CharacterSearchRepositoryProtocol.self)!)
          }
          
+         container.register(DefaultCharacterListMapper.self) { _  in
+             DefaultCharacterListMapper()
+         }
+         
          return container
      }
     
