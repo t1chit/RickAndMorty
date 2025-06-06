@@ -6,9 +6,10 @@
 //
 
 import Foundation
+import Combine
 
 protocol FetchCharacterSearchedUseCaseProtocol {
-    func execute(query: String) async throws -> CharactersList
+    func execute(query: String) -> AnyPublisher<CharactersList, NetworkError>
 }
 
 final class FetchCharacterSearchedUseCase: FetchCharacterSearchedUseCaseProtocol {
@@ -20,13 +21,14 @@ final class FetchCharacterSearchedUseCase: FetchCharacterSearchedUseCaseProtocol
         self.repository = repository
     }
     
-    func execute(query: String) async throws -> CharactersList {
-        do {
-            let response: CharactersList = try await repository.searchCharacters(query: query)
-            return response
-        } catch {
-            print("Catched error in fetchCharacterSearchedUseCase \(error)")
-            throw error
-        }
+    func execute(query: String) -> AnyPublisher<CharactersList, NetworkError> {
+        return repository.searchCharacters(query: query)
+            .handleEvents(receiveCompletion: { completion in
+                if case let .failure(error) = completion {
+                    print("Subscription error in FetchCharacterSearchedUseCase: \(error)")
+                }
+            })
+            .eraseToAnyPublisher()
+        
     }
 }

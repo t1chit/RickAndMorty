@@ -6,7 +6,8 @@
 //
 
 import Foundation
+import Combine
 
 protocol CharacterSearchRepositoryProtocol {
-    func searchCharacters(query: String) async throws -> CharactersList
+    func searchCharacters(query: String) -> AnyPublisher<CharactersList, NetworkError>
 }

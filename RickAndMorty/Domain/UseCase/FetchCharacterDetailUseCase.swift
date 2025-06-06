@@ -12,7 +12,7 @@ protocol CharacterDetailUseCaseProtocol {
     func execute(characterID id: Int) -> AnyPublisher<CharacterDetail, NetworkError>
 }
 
-final class CharacterDetailUseCase: CharacterDetailUseCaseProtocol {
+final class FetchCharacterDetailUseCaseProtocol: CharacterDetailUseCaseProtocol {
     private let repository: CharacterDetailRepositoryProtocol
     
     init(characterDetailRepository: CharacterDetailRepositoryProtocol) {
@@ -23,7 +23,7 @@ final class CharacterDetailUseCase: CharacterDetailUseCaseProtocol {
         return repository.fetchCharacter(id: id)
             .handleEvents(receiveCompletion: { completion in
                 if case let .failure(error) = completion {
-                    print("Subscription error in CharacterDetailUseCase: \(error)")
+                    print("Subscription error in FetchCharacterDetailUseCaseProtocol: \(error)")
                 }
             })
             .eraseToAnyPublisher()

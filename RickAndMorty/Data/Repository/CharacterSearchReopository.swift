@@ -6,8 +6,10 @@
 //
 
 import Foundation
+import Combine
 
 final class CharacterSearchReopository: CharacterSearchRepositoryProtocol {
+    
     private let networkService: NetworkServiceProtocol
     
     init(
@@ -16,14 +18,9 @@ final class CharacterSearchReopository: CharacterSearchRepositoryProtocol {
         self.networkService = networkService
     }
     
-    func searchCharacters(query: String) async throws -> CharactersList {
-        do {
-            let response: CharactersList = try await networkService.request(EndPointsManager.searchCharacter(name: query),
-                                                                            responseType: CharactersList.self)
-            return response
-        } catch {
-            throw error
-        }
-        
+    func searchCharacters(query: String) -> AnyPublisher<CharactersList, NetworkError> {
+        return networkService.reqest(
+            EndPointsManager.searchCharacter(name: query),
+            responseType: CharactersList.self)
     }
 }

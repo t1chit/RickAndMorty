@@ -40,7 +40,7 @@ final class Injection {
          }
          
          container.register(CharacterDetailUseCaseProtocol.self) { resolver in
-             CharacterDetailUseCase(characterDetailRepository: resolver.resolve(CharacterDetailRepositoryProtocol.self)!)
+             FetchCharacterDetailUseCaseProtocol(characterDetailRepository: resolver.resolve(CharacterDetailRepositoryProtocol.self)!)
          }
          
          container.register(CharacterSearchRepositoryProtocol.self) { resolver in

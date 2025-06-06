@@ -16,11 +16,8 @@ struct SearchView: View {
     
     private var viewStates: some View {
         VStack {
-            SearchBarView(text: Binding(
-                               get: { vm.state.query },
-                               set: { vm.send(.updateQuery($0)) }
-            )) {
-                vm.send(.performSearch)
+            SearchBarView(text: $vm.query) {
+                print("Submit")
             }
             
             switch vm.state.phase {

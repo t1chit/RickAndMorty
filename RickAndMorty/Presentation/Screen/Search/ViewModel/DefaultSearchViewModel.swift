@@ -5,7 +5,8 @@
 //  Created by Temur Chitashvili on 30.05.25.
 //
 
-import SwiftUI
+import Foundation
+import Combine
 
 // MARK: - Searching Phase
 
@@ -19,7 +20,6 @@ enum SearchPhase {
 // MARK: - State
 
 struct SearchState {
-    var query: String = ""
     var characterList: CharactersList? = nil
     var error: String? = nil
     var phase: SearchPhase = .idle
@@ -28,14 +28,13 @@ struct SearchState {
 // MARK: - Intent
 
 enum SearchIntent {
-    case updateQuery(String)
-    case performSearch
+    
 }
 
 // MARK: - Search View Model Protocol
 protocol SearchViewModel: ViewModelInput, ViewModelOutput where
-         Intent == SearchIntent,
-         State == SearchState {}
+        Intent == SearchIntent,
+        State == SearchState {}
 
 // MARK: - Search View Model
 
@@ -45,44 +44,59 @@ final class DefaultSearchViewModel: SearchViewModel, ObservableObject {
     private var fetchCharacterSearchedUseCase: FetchCharacterSearchedUseCaseProtocol
     
     @Published var state: SearchState = .init()
+    @Published var query: String = ""
+
+    private var cancellables: Set<AnyCancellable> = []
     
     init(
         router: SearchRouter,
     ) {
         self.router = router
+        observeSearchCharacterQuery()
     }
     
-    @MainActor
-    private func search() async {
-        state.characterList = nil
-        state.phase = .searching
-        state.error = nil
-        
-        do {
-            let response = try await fetchCharacterSearchedUseCase.execute(query: state.query)
-            state.characterList = response
-            state.phase = .results
-        } catch {
-            state.error = error.localizedDescription
-            state.phase = .noResults
-            print("Error catched while searching data \(error)")
-        }
+    // Get More Info About .flatMap
+    private func observeSearchCharacterQuery() {
+        $query
+            .debounce(for: .milliseconds(500), scheduler: RunLoop.main)
+            .removeDuplicates()
+            .handleEvents(receiveOutput: { [weak self] _ in
+                if let query = self?.query, query.isEmpty {
+                    self?.state.phase = .idle
+                    self?.state.error = nil
+                    self?.state.characterList = nil
+                } else {
+                    self?.state.phase = .searching
+                    self?.state.error = nil
+                }
+            })
+            .filter {
+                !$0.isEmpty
+            }
+            .flatMap { [weak self] query -> AnyPublisher<CharactersList, NetworkError> in
+                guard let self else {
+                    return Empty().eraseToAnyPublisher()
+                }
+                print("Executed ")
+                return self.fetchCharacterSearchedUseCase.execute(query: query)
+            }
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { [weak self] completion in
+                if case let .failure(error) = completion {
+                    self?.state.phase = .noResults
+                    self?.state.error = error.localizedDescription
+                    print("Failed to fetch characters: \(error)")
+                }
+            }, receiveValue: { [weak self] characters in
+                self?.state.characterList = characters
+                self?.state.phase = .results
+            })
+            .store(in: &cancellables)
     }
+
     
     func send(_ intent: SearchIntent) {
-        switch intent {
-        case .updateQuery(let query):
-            state.query = query
-            if query.isEmpty {
-                state.phase = .idle
-                state.characterList = nil
-            }
 
-        case .performSearch:
-            Task {
-                await search()
-            }
-        }
     }
 }
 
