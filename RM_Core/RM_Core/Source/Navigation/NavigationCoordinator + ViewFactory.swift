@@ -13,11 +13,13 @@ public protocol ViewFactory {
 }
 
 // MARK: - Routable
-public typealias Routable = ViewFactory & Hashable
+public protocol Routable: ViewFactory, Hashable, Identifiable where ID == String {}
 
 // MARK: - Navigation Coordinator Protocol
 public protocol NavigationCoordinator {
     func push(_ path: any Routable) async
     func pop() async
     func popToRoot() async
+    func present(_ router: any Routable, detents: Set<PresentationDetent>) async
+    func dismissPresented()
 }

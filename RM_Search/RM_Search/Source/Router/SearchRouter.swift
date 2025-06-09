@@ -9,11 +9,11 @@
 import SwiftUI
 import Swinject
 import RM_Core
+import RM_Details
 
 public final class SearchRouter {
     private let rootCoordinator: NavigationCoordinator
     private let container: Resolver
-    private let id: UUID = UUID()
     
     public init(
         rootCoordinator: NavigationCoordinator,
@@ -22,9 +22,20 @@ public final class SearchRouter {
         self.rootCoordinator = rootCoordinator
         self.container = container
     }
+    
+    func routeToDetailPage(withID id: Int) async {
+        let router = CharacterDetailRouter(rootCoordinator: rootCoordinator,
+                                           container: container,
+                                           characterId: id)
+        await rootCoordinator.push(router)
+    }
 }
 
 extension SearchRouter: Routable {
+    public var id: String {
+        "SearchRouter"
+    }
+    
     public func makeView() -> AnyView {
         let useCase = container.resolve(FetchCharacterSearchedUseCaseProtocol.self)!
         let vm = DefaultSearchViewModel(

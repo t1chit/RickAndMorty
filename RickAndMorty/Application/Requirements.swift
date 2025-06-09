@@ -37,7 +37,7 @@
 // Modular Architecture ✅
 // Cyrcular Dependencie ✅
 // Network Module Full independent ✅
-// UI Modul - Components ❓
+// UI Modul - Components ✅
 // 3 productul modul, character list, ✅
 // character detail, ✅
 // character search. ✅
@@ -46,10 +46,10 @@
 
 // DTO Data layer shi ✅
 
-// Calcalke gadavitanot yvela komponenti ❓
+// Calcalke gadavitanot yvela komponenti ✅
 
 // epizodis detalebi characteris detalebis gverdidan modal sheet ❓
-// searchidan detalebis gverdze ❓
+// searchidan detalebis gverdze ✅
 
 // preview gavuketot yvela fails ❓
 

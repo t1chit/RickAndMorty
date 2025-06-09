@@ -92,6 +92,9 @@ public struct CharacterDetailView: View {
                         Text(episode)
                             .foregroundColor(.blue)
                             .font(.subheadline)
+                            .onTapGesture {
+                                vm.send(.episode(id: episode.extractedID ?? 0))
+                            }
                     }
                 }
                 .padding(.horizontal)

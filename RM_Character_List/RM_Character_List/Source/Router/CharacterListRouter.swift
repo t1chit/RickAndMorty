@@ -15,16 +15,13 @@ import RM_Details
 public final class CharacterListRouter {
     private let rootCoordinator: NavigationCoordinator
     private let container: Resolver
-    private let id: String
     
     public init(
         rootCoordinator: NavigationCoordinator,
         container: Resolver,
-        id: String = "CharacterListRouter"
     ) {
         self.rootCoordinator = rootCoordinator
         self.container = container
-        self.id = id
     }
 
     func routeToDetailPage(withID id: Int) async {
@@ -39,6 +36,11 @@ public final class CharacterListRouter {
 // MARK: - ViewFactory implementation
 
 extension CharacterListRouter: Routable {
+    public var id: String {
+        "CharacterListRouter"
+    }
+    
+    
     public func makeView() -> AnyView {
         let useCase = container.resolve(FetchCharacterListUseCaseProtocol.self)!
         let vm = DefaultCharacterListViewModel(router: self,

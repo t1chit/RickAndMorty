@@ -8,6 +8,7 @@
 
 import SwiftUI
 import RM_Core
+import RM_UI_Components
 
 public struct CharactersListView: View {
     @StateObject var vm: DefaultCharacterListViewModel
@@ -57,58 +58,6 @@ public struct CharactersListView: View {
                             }
                         }
                 }
-            }
-        }
-    }
-}
-
-// MARK: - Character Card
-public struct CharacterCard: View {
-    let character: CharacterCardDomain
-    
-    public var body: some View {
-        content()
-    }
-    
-    private func content() -> some View {
-        VStack(alignment: .leading,
-               spacing: 8) {
-            image()
-            
-            characterContent()
-        }
-    }
-    
-    private func image() -> some View {
-        CachedImage(url: character.image) { phase in
-            switch phase {
-            case .empty:
-                ProgressView()
-                    .frame(width: 200, height: 200)
-            case .success(let image):
-                image
-                    .resizable()
-                    .frame(width: 200, height: 200)
-                    .cornerRadius(16)
-            case .failure( _ ):
-                Image(systemName: "xmark.circle")
-            @unknown default:
-                fatalError()
-            }
-        }
-    }
-    
-    private func characterContent() -> some View {
-        VStack(alignment: .leading,
-               spacing: 4) {
-            
-            Text(character.name)
-                .font(.headline)
-                .lineLimit(1)
-            
-            HStack {
-                Text(character.gender)
-                    .foregroundColor(.secondary)
             }
         }
     }

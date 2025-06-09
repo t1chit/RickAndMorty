@@ -10,6 +10,7 @@ import RM_Network_Service
 import RM_Character_List
 import RM_Details
 import RM_Search
+import RM_Episodes
 
 final class DIContainer {
     static let shared = DIContainer()
@@ -24,6 +25,7 @@ final class DIContainer {
         assembler = Assembler([
             RMCharacterListAssembly(),
             RMDetailsAssembly(),
+            EpisodesAssambly(),
             RMSearchAssembly()
         ])
     }

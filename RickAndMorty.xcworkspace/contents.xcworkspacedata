@@ -2,6 +2,12 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:RM_Episodes/RM_Episodes.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:RM_UI_Components/RM_UI_Components.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:RM_Search/RM_Search.xcodeproj">
    </FileRef>
    <FileRef

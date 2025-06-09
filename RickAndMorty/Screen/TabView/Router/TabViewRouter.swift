@@ -11,23 +11,24 @@ import Swinject
 
 final class TabViewRouter {
     private let rootCoordinator: NavigationCoordinator
-    private let id: String
     private let container: Resolver
 
     init(
         rootCoordinator: NavigationCoordinator,
         container: Resolver,
-        id: String = "TabViewRouter"
     ) {
         self.rootCoordinator = rootCoordinator
         self.container = container
-        self.id = id
     }
 }
 
 // MARK: - ViewFactory implementation
 
 extension TabViewRouter: Routable {
+    public var id: String {
+        "TabViewRouter"
+    }
+    
     func makeView() -> AnyView {
         let view = MainTabView(rootCoordinator: rootCoordinator,
                                container: container)

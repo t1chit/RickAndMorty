@@ -31,13 +31,13 @@ struct SearchState {
 // MARK: - Intent
 
 enum SearchIntent {
-    
+    case characterSelected(withID: Int)
 }
 
 // MARK: - Search View Model Protocol
 protocol SearchViewModel: ViewModelInput, ViewModelOutput where
-        Intent == SearchIntent,
-        State == SearchState {}
+Intent == SearchIntent,
+State == SearchState {}
 
 // MARK: - Search View Model
 
@@ -47,9 +47,9 @@ final class DefaultSearchViewModel: SearchViewModel, ObservableObject {
     
     @Published var state: SearchState = .init()
     @Published var query: String = ""
-
+    
     private var cancellables: Set<AnyCancellable> = []
-  
+    
     init(
         router: SearchRouter,
         fetchCharacterSearchedUseCase: FetchCharacterSearchedUseCaseProtocol,
@@ -59,7 +59,7 @@ final class DefaultSearchViewModel: SearchViewModel, ObservableObject {
         observeSearchCharacterQuery()
     }
     
-
+    
     // Get More Info About .flatMap
     private func observeSearchCharacterQuery() {
         $query
@@ -98,10 +98,15 @@ final class DefaultSearchViewModel: SearchViewModel, ObservableObject {
             })
             .store(in: &cancellables)
     }
-
+    
     
     func send(_ intent: SearchIntent) {
-
+        switch intent {
+        case .characterSelected(let id):
+            Task {
+                await router.routeToDetailPage(withID: id)
+            }
+        }
     }
 }
 

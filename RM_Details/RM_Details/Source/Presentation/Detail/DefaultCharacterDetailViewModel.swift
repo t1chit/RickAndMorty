@@ -10,6 +10,7 @@ import Foundation
 import Combine
 import RM_Network_Service
 import RM_Core
+import RM_Episodes
 
 public struct CharacterDetailState {
     var isLoading: Bool = false
@@ -19,6 +20,7 @@ public struct CharacterDetailState {
 
 public enum CharacterDetailIntent {
     case onAppear
+    case episode(id: Int)
 }
 // MARK: - Character Detail View Model Protocol
 
@@ -49,6 +51,10 @@ final class DefaultCharacterDetailViewModel: ObservableObject {
         switch intent {
         case .onAppear:
                 getCharacterDetail()
+        case .episode(let id):
+            Task {
+                await router.presentEpisodes(withID: id)
+            }
         }
     }
     

@@ -13,9 +13,12 @@ import Swinject
 final class AppRouter: ObservableObject, NavigationCoordinator {
     @Published var paths = NavigationPath()
     private let container: Resolver
+    @Published var presentedRouter: AnyRoutable? = nil  // <- For modal presentation
 
     
-    init(container: Resolver = DIContainer.shared.container) {
+    init(
+        container: Resolver = DIContainer.shared.container
+    ) {
         self.container = container
     }
 
@@ -40,6 +43,17 @@ final class AppRouter: ObservableObject, NavigationCoordinator {
         }
     }
     
+    func present(_ router: any Routable, detents: Set<PresentationDetent> = [.large]) async {
+        await MainActor.run { [weak self] in
+            let wrappedRouter = AnyRoutable(router, detents: detents)
+            self?.presentedRouter = wrappedRouter
+        }
+    }
+
+    func dismissPresented() {
+        presentedRouter = nil
+    }
+    
     func resolveInitialRouter() -> any Routable {
         let mainTabViewRouter: TabViewRouter = TabViewRouter(rootCoordinator: self, container: container)
         return mainTabViewRouter
@@ -48,16 +62,21 @@ final class AppRouter: ObservableObject, NavigationCoordinator {
 
 // MARK: - A type-erased wrapper for Routable
 
-struct AnyRoutable: Routable {
+struct AnyRoutable: Routable, Identifiable {
+    let id: String
     private let base: any Routable
     private let equals: (any Routable) -> Bool
     
-    init<T: Routable>(_ routable: T) {
+    let detents: Set<PresentationDetent>
+
+    init<T: Routable>(_ routable: T, detents: Set<PresentationDetent> = [.large]) {
+        self.id = routable.id
         base = routable
         equals = { other in
             guard let otherBase = other as? T else { return false }
             return routable == otherBase
         }
+        self.detents = detents
     }
     
     func makeView() -> AnyView {
@@ -71,5 +90,4 @@ struct AnyRoutable: Routable {
     static func == (lhs: AnyRoutable, rhs: AnyRoutable) -> Bool {
         lhs.equals(rhs.base)
     }
-    
 }

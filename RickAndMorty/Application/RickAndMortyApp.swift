@@ -17,6 +17,10 @@ struct RickAndMortyApp: App {
                     .navigationDestination(for: AnyRoutable.self) { factory in
                         factory.makeView()
                     }
+                    .sheet(item: $appRouter.presentedRouter) { factory in
+                        factory.makeView()
+                            .presentationDetents(factory.detents)
+                    }
             }
         }
     }
