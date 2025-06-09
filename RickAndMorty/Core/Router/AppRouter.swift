@@ -6,26 +6,19 @@
 //
 
 import SwiftUI
-
-// MARK: - View Factory Protocol
-protocol ViewFactory {
-    func makeView() -> AnyView
-}
-
-// MARK: - Routable
-typealias Routable = ViewFactory & Hashable
-
-// MARK: - Navigation Coordinator Protocol
-protocol NavigationCoordinator {
-    func push(_ path: any Routable) async
-    func pop() async
-    func popToRoot() async
-}
+import RM_Core
+import Swinject
 
 // MARK: - App Router Class
 final class AppRouter: ObservableObject, NavigationCoordinator {
     @Published var paths = NavigationPath()
+    private let container: Resolver
+
     
+    init(container: Resolver = DIContainer.shared.container) {
+        self.container = container
+    }
+
     var count: Int { paths.count }
     
     func push(_ router: any Routable) async {
@@ -48,7 +41,7 @@ final class AppRouter: ObservableObject, NavigationCoordinator {
     }
     
     func resolveInitialRouter() -> any Routable {
-        let mainTabViewRouter: TabViewRouter = TabViewRouter(rootCoordinator: self)
+        let mainTabViewRouter: TabViewRouter = TabViewRouter(rootCoordinator: self, container: container)
         return mainTabViewRouter
     }
 }

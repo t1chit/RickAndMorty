@@ -7,70 +7,24 @@
 
 import Swinject
 import RM_Network_Service
+import RM_Character_List
+import RM_Details
+import RM_Search
 
-final class Injection {
-    static let shared = Injection()
+final class DIContainer {
+    static let shared = DIContainer()
     
-    var container: Container {
-         get {
-             return _container ?? buildContainer()
-         }
-         set {
-             _container = newValue
-         }
-     }
+    private let assembler: Assembler
 
-     private var _container: Container?
+    var container: Resolver {
+        assembler.resolver
+    }
     
-     private func buildContainer() -> Container {
-         let container = Container()
-         container.register(NetworkService.self) { _ in
-             NetworkService()
-         }
-         
-         container.register(CharacterListRepositoryProtocol.self) { resolver in
-             CharacterListRepository(networkService: resolver.resolve(NetworkService.self)!)
-         }
-         
-         container.register(FetchCharacterListUseCaseProtocol.self) { resolver in
-             FetchCharacterListUseCase(repository: resolver.resolve(CharacterListRepositoryProtocol.self)!)
-         }
-         
-         container.register(CharacterDetailRepositoryProtocol.self) { resolver in
-             CharacterDetailRepository(networkService: resolver.resolve(NetworkService.self)!)
-         }
-         
-         container.register(CharacterDetailUseCaseProtocol.self) { resolver in
-             FetchCharacterDetailUseCaseProtocol(characterDetailRepository: resolver.resolve(CharacterDetailRepositoryProtocol.self)!)
-         }
-         
-         container.register(CharacterSearchRepositoryProtocol.self) { resolver in
-             CharacterSearchReopository(networkService: resolver.resolve(NetworkService.self)!)
-         }
-         
-         container.register(FetchCharacterSearchedUseCaseProtocol.self) { resolver in
-             FetchCharacterSearchedUseCase(repository: resolver.resolve(CharacterSearchRepositoryProtocol.self)!)
-         }
-         
-         container.register(DefaultCharacterListMapper.self) { _  in
-             DefaultCharacterListMapper()
-         }
-         
-         container.register(DefaultCharacterDetailMapper.self) { _  in
-             DefaultCharacterDetailMapper()
-         }
-         
-         return container
-     }
-    
-    private init() {}
-}
-
-@propertyWrapper
-struct Injected<Dependecy> {
-    var wrappedValue: Dependecy
-    
-    init() {
-        wrappedValue = Injection.shared.container.resolve(Dependecy.self)!
+    private init() {
+        assembler = Assembler([
+            RMCharacterListAssembly(),
+            RMDetailsAssembly(),
+            RMSearchAssembly()
+        ])
     }
 }
