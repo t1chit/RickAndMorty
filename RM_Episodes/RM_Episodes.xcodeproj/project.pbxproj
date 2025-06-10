@@ -7,18 +7,35 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		55115B8B2DF86D6B00736322 /* RM_Episodes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55CC48792DF6D25500EEFCFE /* RM_Episodes.framework */; platformFilter = ios; };
 		55CC489A2DF6FE0A00EEFCFE /* Swinject in Frameworks */ = {isa = PBXBuildFile; productRef = 55CC48992DF6FE0A00EEFCFE /* Swinject */; };
 		55CC489D2DF702DE00EEFCFE /* RM_Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55CC489C2DF702DE00EEFCFE /* RM_Core.framework */; };
 		55CC48C32DF71A4400EEFCFE /* RM_Network_Service.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55CC48C22DF71A4400EEFCFE /* RM_Network_Service.framework */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		55115B8C2DF86D6B00736322 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 55CC48702DF6D25500EEFCFE /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 55CC48782DF6D25500EEFCFE;
+			remoteInfo = RM_Episodes;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		55115B872DF86D6B00736322 /* RM_EpisodesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RM_EpisodesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		55CC48792DF6D25500EEFCFE /* RM_Episodes.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RM_Episodes.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		55CC489C2DF702DE00EEFCFE /* RM_Core.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RM_Core.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		55CC48C22DF71A4400EEFCFE /* RM_Network_Service.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RM_Network_Service.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		55115B882DF86D6B00736322 /* RM_EpisodesTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = RM_EpisodesTests;
+			sourceTree = "<group>";
+		};
 		55CC487B2DF6D25500EEFCFE /* RM_Episodes */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = RM_Episodes;
@@ -27,6 +44,14 @@
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		55115B842DF86D6B00736322 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				55115B8B2DF86D6B00736322 /* RM_Episodes.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		55CC48762DF6D25500EEFCFE /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -44,6 +69,7 @@
 			isa = PBXGroup;
 			children = (
 				55CC487B2DF6D25500EEFCFE /* RM_Episodes */,
+				55115B882DF86D6B00736322 /* RM_EpisodesTests */,
 				55CC489B2DF702DE00EEFCFE /* Frameworks */,
 				55CC487A2DF6D25500EEFCFE /* Products */,
 			);
@@ -53,6 +79,7 @@
 			isa = PBXGroup;
 			children = (
 				55CC48792DF6D25500EEFCFE /* RM_Episodes.framework */,
+				55115B872DF86D6B00736322 /* RM_EpisodesTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -79,6 +106,29 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		55115B862DF86D6B00736322 /* RM_EpisodesTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 55115B902DF86D6B00736322 /* Build configuration list for PBXNativeTarget "RM_EpisodesTests" */;
+			buildPhases = (
+				55115B832DF86D6B00736322 /* Sources */,
+				55115B842DF86D6B00736322 /* Frameworks */,
+				55115B852DF86D6B00736322 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				55115B8D2DF86D6B00736322 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				55115B882DF86D6B00736322 /* RM_EpisodesTests */,
+			);
+			name = RM_EpisodesTests;
+			packageProductDependencies = (
+			);
+			productName = RM_EpisodesTests;
+			productReference = 55115B872DF86D6B00736322 /* RM_EpisodesTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		55CC48782DF6D25500EEFCFE /* RM_Episodes */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 55CC48822DF6D25500EEFCFE /* Build configuration list for PBXNativeTarget "RM_Episodes" */;
@@ -113,6 +163,9 @@
 				LastSwiftUpdateCheck = 1640;
 				LastUpgradeCheck = 1640;
 				TargetAttributes = {
+					55115B862DF86D6B00736322 = {
+						CreatedOnToolsVersion = 16.4;
+					};
 					55CC48782DF6D25500EEFCFE = {
 						CreatedOnToolsVersion = 16.4;
 					};
@@ -136,11 +189,19 @@
 			projectRoot = "";
 			targets = (
 				55CC48782DF6D25500EEFCFE /* RM_Episodes */,
+				55115B862DF86D6B00736322 /* RM_EpisodesTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		55115B852DF86D6B00736322 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		55CC48772DF6D25500EEFCFE /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -151,6 +212,13 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		55115B832DF86D6B00736322 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		55CC48752DF6D25500EEFCFE /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -160,7 +228,53 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		55115B8D2DF86D6B00736322 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			platformFilter = ios;
+			target = 55CC48782DF6D25500EEFCFE /* RM_Episodes */;
+			targetProxy = 55115B8C2DF86D6B00736322 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		55115B8E2DF86D6B00736322 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = R6XNAQSMZ9;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "ge.chit.RM-EpisodesTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		55115B8F2DF86D6B00736322 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = R6XNAQSMZ9;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "ge.chit.RM-EpisodesTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 		55CC48802DF6D25500EEFCFE /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -370,6 +484,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		55115B902DF86D6B00736322 /* Build configuration list for PBXNativeTarget "RM_EpisodesTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				55115B8E2DF86D6B00736322 /* Debug */,
+				55115B8F2DF86D6B00736322 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		55CC48732DF6D25500EEFCFE /* Build configuration list for PBXProject "RM_Episodes" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

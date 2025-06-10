@@ -48,7 +48,7 @@
 
 // Calcalke gadavitanot yvela komponenti ✅
 
-// epizodis detalebi characteris detalebis gverdidan modal sheet ❓
+// epizodis detalebi characteris detalebis gverdidan modal sheet ✅
 // searchidan detalebis gverdze ✅
 
 // preview gavuketot yvela fails ❓

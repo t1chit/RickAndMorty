@@ -71,7 +71,7 @@ final class DefaultEpisodesViewModel: EpisodesViewModel, ObservableObject {
                 }
             } receiveValue: { [weak self] response in
                 self?.state.episode = response
-                var ids = response.characters.compactMap({ $0.extractedID })
+                let ids = response.characters.compactMap({ $0.extractedID })
                 self?.fetchCharactersInEpisode(withIDs: ids)
             }
             .store(in: &cancellables)

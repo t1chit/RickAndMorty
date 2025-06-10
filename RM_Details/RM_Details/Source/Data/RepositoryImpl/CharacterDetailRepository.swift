@@ -7,7 +7,7 @@
 
 import Foundation
 import Combine
-import Swinject
+internal import Swinject
 import RM_Network_Service
 import RM_Core
 
